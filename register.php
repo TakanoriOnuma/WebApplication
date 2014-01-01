@@ -1,4 +1,21 @@
 <?php
+    // テンプレート利用準備
+    require_once 'smarty/Smarty.class.php';
+
+    $smarty = new Smarty();
+    $smarty->template_dir = 'templates/';
+    $smarty->compile_dir  = 'templates_c/';
+
+    // フォーム送信でない時（登録するために来た時）
+    if (!isset($_POST['id'])) {
+        $smarty->assign('error_message', '');
+        $smarty->display('register.html');
+        exit;
+    }
+
+    // フォーム送信で来たとき
+
+
     // 文字コードの都合上先に宣言する
     echo <<<EOM
 <!DOCTYPE html>
@@ -9,15 +26,23 @@
 </head>
 EOM;
 
+    $error_message = '';        // エラーなしと宣言しておく
     // エラーチェック
     if ($_POST['id'] == '' or $_POST['nickname'] == '') {
-        exit('IDかニックネームが記入していません。');
+        $error_message = 'IDかニックネームが記入していません。';
     }
-    if ($_POST['password'] == '') {
-        exit('パスワードが入力してありません。');
+    else if ($_POST['password'] == '') {
+        $error_message = 'パスワードが入力してありません。';
     }
-    if ($_POST['password'] != $_POST['check_pass']) {
-        exit('パスワードが一致していません。');
+    else if ($_POST['password'] != $_POST['check_pass']) {
+        $error_message = 'パスワードが一致していません。';
+    }
+
+    // エラーがあったか見る
+    if ($error_message != '') {
+        $smarty->assign('error_message', '<h2>' . $error_message . '</h2>');
+        $smarty->display('register.html');
+        exit;
     }
 
     echo <<<EOM
