@@ -14,18 +14,6 @@
     }
 
     // フォーム送信で来たとき
-
-
-    // 文字コードの都合上先に宣言する
-    echo <<<EOM
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8" />
-<title>test</title>
-</head>
-EOM;
-
     $error_message = '';        // エラーなしと宣言しておく
     // エラーチェック
     if ($_POST['id'] == '' or $_POST['nickname'] == '') {
@@ -45,7 +33,14 @@ EOM;
         exit;
     }
 
+    // エラーなしの処理
     echo <<<EOM
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<title>test</title>
+</head>   
 <body>
 <p>ID:{$_POST['id']}</p>
 <p>ニックネーム:{$_POST['nickname']}</p>
