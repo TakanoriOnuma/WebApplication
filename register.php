@@ -17,18 +17,18 @@
     $error_message = '';        // エラーなしと宣言しておく
     // エラーチェック
     if ($_POST['id'] == '' or $_POST['nickname'] == '') {
-        $error_message = 'IDかニックネームが記入していません。';
+        $error_message .= "IDかニックネームが記入していません。\n";
     }
-    else if ($_POST['password'] == '') {
-        $error_message = 'パスワードが入力してありません。';
+    if ($_POST['password'] == '') {
+        $error_message .= "パスワードが入力してありません。\n";
     }
-    else if ($_POST['password'] != $_POST['check_pass']) {
-        $error_message = 'パスワードが一致していません。';
+    if ($_POST['password'] != $_POST['check_pass']) {
+        $error_message .= "パスワードが一致していません。\n";
     }
 
     // エラーがあったか見る
     if ($error_message != '') {
-        $smarty->assign('error_message', '<h2>' . $error_message . '</h2>');
+        $smarty->assign('error_message', '<h2>' . nl2br($error_message) . '</h2>');
         $smarty->display('register.html');
         exit;
     }
