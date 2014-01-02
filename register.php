@@ -19,16 +19,36 @@
 
     // フォーム送信で来たとき
     $error_message = '';        // エラーなしと宣言しておく
-    // エラーチェック
-    if ($_POST['id'] == '' or $_POST['nickname'] == '') {
-        $error_message .= "IDかニックネームが記入していません。\n";
+
+    try {
+        $pdo = new PDO('mysql:dbname=phpdb;host=127.0.0.1', 'root', 'ayashi', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        $pdo->query('SET NAMES utf8');
+
+        $stmt = $pdo->prepare('SELECT * FROM account WHERE id = :id');
+        $stmt->bindValue(':id', $_POST['id']);
+        $stmt->execute();
+
+        // エラーチェック
+        if($stmt->fetch(PDO::FETCH_ASSOC)) {
+            $error_message .= "このIDは既に使われています。\n";
+        }
+        if ($_POST['id'] == '' or $_POST['nickname'] == '') {
+            $error_message .= "IDかニックネームが記入していません。\n";
+        }
+        if ($_POST['password'] == '') {
+            $error_message .= "パスワードが入力してありません。\n";
+        }
+        if ($_POST['password'] != $_POST['check_pass']) {
+            $error_message .= "パスワードが一致していません。\n";
+        }
+        
+        $pdo = null;
     }
-    if ($_POST['password'] == '') {
-        $error_message .= "パスワードが入力してありません。\n";
+    catch(PDOException $e) {
+        exit($e->getMessage());
     }
-    if ($_POST['password'] != $_POST['check_pass']) {
-        $error_message .= "パスワードが一致していません。\n";
-    }
+
+
 
     // エラーがあったか見る
     if ($error_message != '') {
