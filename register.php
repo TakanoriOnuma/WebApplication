@@ -23,7 +23,7 @@
         $pdo = new PDO('mysql:dbname=phpdb;host=127.0.0.1', 'root', 'ayashi', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         $pdo->query('SET NAMES utf8');
 
-        $stmt = $pdo->prepare('SELECT * FROM account WHERE id = :id');
+        $stmt = $pdo->prepare('SELECT * FROM accounts WHERE id = :id');
         $stmt->bindValue(':id', $_POST['id']);
         $stmt->execute();
 
@@ -54,7 +54,7 @@
         }
 
         // エラーなしの処理
-        $stmt = $pdo->prepare('INSERT INTO account(id, nickname, password) VALUES(:id, :nickname, :password)');
+        $stmt = $pdo->prepare('INSERT INTO accounts(id, nickname, password) VALUES(:id, :nickname, :password)');
         $stmt->bindValue(':id', $_POST['id']);
         $stmt->bindValue(':nickname', $_POST['nickname']);
         $stmt->bindValue(':password', $_POST['password']);
