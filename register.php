@@ -41,7 +41,7 @@
         if ($_POST['password'] != $_POST['check_pass']) {
             $error_message .= "パスワードが一致していません。\n";
         }
-        
+
         // エラーがあったか見る
         if ($error_message != '') {
             $smarty->assign('error_message', '<h2>' . nl2br($error_message) . '</h2>');
@@ -53,17 +53,15 @@
             exit;
         }
 
-        $pdo = null;
-    }
-    catch(PDOException $e) {
-        exit($e->getMessage());
-    }
+        // エラーなしの処理
+        $stmt = $pdo->prepare('INSERT INTO account(id, nickname, password) VALUES(:id, :nickname, :password)');
+        $stmt->bindValue(':id', $_POST['id']);
+        $stmt->bindValue(':nickname', $_POST['nickname']);
+        $stmt->bindValue(':password', $_POST['password']);
+        $stmt->execute();
 
-
-
-
-    // エラーなしの処理
-    echo <<<EOM
+        // 結果を表示
+        echo <<<EOM
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -71,11 +69,17 @@
 <title>test</title>
 </head>   
 <body>
+<p>以下のデータを登録しました。</p>
 <p>ID:{$_POST['id']}</p>
 <p>ニックネーム:{$_POST['nickname']}</p>
 <p>パスワード:{$_POST['password']}</p>
-<p>確認用パスワード:{$_POST['check_pass']}</p>
 </body>
 </html>
 EOM;
+
+        $pdo = null;
+    }
+    catch(PDOException $e) {
+        exit($e->getMessage());
+    }
 ?>
