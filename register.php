@@ -17,9 +17,8 @@
         exit;
     }
 
-    // フォーム送信で来たとき
-    $error_message = '';        // エラーなしと宣言しておく
 
+    // フォーム送信で来たとき
     try {
         $pdo = new PDO('mysql:dbname=phpdb;host=127.0.0.1', 'root', 'ayashi', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         $pdo->query('SET NAMES utf8');
@@ -28,6 +27,7 @@
         $stmt->bindValue(':id', $_POST['id']);
         $stmt->execute();
 
+        $error_message = '';        // エラーなしと宣言しておく
         // エラーチェック
         if($stmt->fetch(PDO::FETCH_ASSOC)) {
             $error_message .= "このIDは既に使われています。\n";
@@ -42,6 +42,17 @@
             $error_message .= "パスワードが一致していません。\n";
         }
         
+        // エラーがあったか見る
+        if ($error_message != '') {
+            $smarty->assign('error_message', '<h2>' . nl2br($error_message) . '</h2>');
+            $smarty->assign('id', $_POST['id']);
+            $smarty->assign('nickname', $_POST['nickname']);
+            $smarty->assign('password', $_POST['password']);
+            $smarty->assign('check_pass', $_POST['check_pass']);
+            $smarty->display('register.html');
+            exit;
+        }
+
         $pdo = null;
     }
     catch(PDOException $e) {
@@ -50,16 +61,6 @@
 
 
 
-    // エラーがあったか見る
-    if ($error_message != '') {
-        $smarty->assign('error_message', '<h2>' . nl2br($error_message) . '</h2>');
-        $smarty->assign('id', $_POST['id']);
-        $smarty->assign('nickname', $_POST['nickname']);
-        $smarty->assign('password', $_POST['password']);
-        $smarty->assign('check_pass', $_POST['check_pass']);
-        $smarty->display('register.html');
-        exit;
-    }
 
     // エラーなしの処理
     echo <<<EOM
