@@ -17,7 +17,6 @@
         exit;
     }
 
-
     // フォーム送信で来たとき
     try {
         $pdo = new PDO('mysql:dbname=phpdb;host=127.0.0.1', 'root', 'ayashi', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
@@ -61,26 +60,12 @@
         $stmt->bindValue(':password', $hash_pass);
         $stmt->execute();
 
-        // 結果を表示
-        echo <<<EOM
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8" />
-<title>test</title>
-</head>   
-<body>
-<p>以下のデータを登録しました。</p>
-<p>ID:{$_POST['id']}</p>
-<p>ニックネーム:{$_POST['nickname']}</p>
-<p>パスワード:{$hash_pass}</p>
-</body>
-</html>
-EOM;
-
-        $pdo = null;
+        $pdo = null;        // データベースとの接続を終了する
     }
     catch(PDOException $e) {
         exit($e->getMessage());
     }
+
+    // 登録が成功したと表示する
+    $smarty->display('complete.html');
 ?>
