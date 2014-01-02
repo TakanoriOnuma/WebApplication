@@ -54,10 +54,11 @@
         }
 
         // エラーなしの処理
+        $hash_pass = sha1($_POST['password']);
         $stmt = $pdo->prepare('INSERT INTO accounts(id, nickname, password) VALUES(:id, :nickname, :password)');
         $stmt->bindValue(':id', $_POST['id']);
         $stmt->bindValue(':nickname', $_POST['nickname']);
-        $stmt->bindValue(':password', $_POST['password']);
+        $stmt->bindValue(':password', $hash_pass);
         $stmt->execute();
 
         // 結果を表示
@@ -72,7 +73,7 @@
 <p>以下のデータを登録しました。</p>
 <p>ID:{$_POST['id']}</p>
 <p>ニックネーム:{$_POST['nickname']}</p>
-<p>パスワード:{$_POST['password']}</p>
+<p>パスワード:{$hash_pass}</p>
 </body>
 </html>
 EOM;
