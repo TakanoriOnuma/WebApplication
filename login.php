@@ -46,6 +46,8 @@
             $smarty->display('login.html');
             exit;
         }
+
+        $pdo = null;    // データベースとの接続を終了する
     }
     catch(PDOException $e) {
         exit($e->getMessage());
