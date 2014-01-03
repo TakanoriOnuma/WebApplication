@@ -32,7 +32,8 @@
             $error_message .= "このIDは使われていません。\n";
         }
         else {
-            if ($_POST['password'] != $data['password']) {
+            $hash_pass = sha1($_POST['password']);
+            if ($hash_pass != $data['password']) {
                 $error_message .= "パスワードが正しくありません。\n";
             }
         }
