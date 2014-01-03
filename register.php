@@ -1,4 +1,6 @@
 <?php
+    require_once 'myDataBase.php';      // データベースアクセスクラスの読み込み
+
     // テンプレート利用準備
     require_once 'smarty/Smarty.class.php';
 
@@ -19,7 +21,7 @@
 
     // フォーム送信で来たとき
     try {
-        $pdo = new PDO('mysql:dbname=phpdb;host=127.0.0.1', 'root', 'ayashi', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        $pdo = myDataBase::createPDO();        
         $pdo->query('SET NAMES utf8');
 
         $stmt = $pdo->prepare('SELECT * FROM accounts WHERE id = :id');
