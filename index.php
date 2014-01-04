@@ -45,6 +45,7 @@
 
     $account_html = <<<EOM
 会員番号：{$account_data['number']}
+ID:{$account_data['id']}
 ニックネーム：{$account_data['nickname']}
 EOM;
     $smarty->assign('account_data', $account_html);
