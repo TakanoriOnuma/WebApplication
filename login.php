@@ -18,6 +18,7 @@
         exit;
     }
 
+    $account_number;        // 会員番号
     // フォーム送信で来たとき
     try {
         $pdo = myDataBase::createPDO();
@@ -50,6 +51,8 @@
             exit;
         }
 
+        $account_number = $data['number'];      // 会員番号を受け取る
+
         $pdo = null;    // データベースとの接続を終了する
     }
     catch(PDOException $e) {
@@ -59,6 +62,12 @@
     // エラーがない時
     $auto_login_flag = (isset($_POST['auto_login'])) ? 'true' : 'false';
 
+
+    // セッションに登録する
+    session_start();
+
+    $_SESSION['number'] = $account_number;      // セッションに登録する
+
     echo <<<EOM
 <!DOCTYPE html>
 <html lang="ja">
@@ -67,9 +76,11 @@
 <title>test</title>
 </head>
 <body>
+<p>以下のデータでログインしました。</p>
 <p>ID:{$_POST['id']}</p>
-<p>PW:{$_POST['password']}</p>
+<p>PW:{$hash_pass}</p>
 <p>AutoLogin:{$auto_login_flag}</p>
+<p><a href="index.php">トップページに戻る</a></p>
 </body>
 </html>
 EOM;
