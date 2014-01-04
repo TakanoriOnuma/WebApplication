@@ -9,10 +9,10 @@
 {$error_message}
 <form action="register.php" method="post">
 <p>
-    登録したいID：<input type="text" name="id" value="{$id}"><br />
-    ニックネーム：<input type="text" name="nickname" value="{$nickname}"><br />
-    パスワード：<input type="password" name="password" value="{$password}"><br />
-    確認用パスワード：<input type="password" name="check_pass" value="{$check_pass}"><br /><br />
+    登録したいID：<input type="text" name="id" value="{$id|default:''}"><br />
+    ニックネーム：<input type="text" name="nickname" value="{$nickname|default:''}"><br />
+    パスワード：<input type="password" name="password" value="{$password|default:''}"><br />
+    確認用パスワード：<input type="password" name="check_pass" value="{$check_pass|default:''}"><br /><br />
     <input type="submit" value="提出する">
     <input type="reset" value="リセット">
 </p>

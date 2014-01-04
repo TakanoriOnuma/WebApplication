@@ -11,10 +11,6 @@
     // フォーム送信でない時（登録するために来た時）
     if (!isset($_POST['id'])) {
         $smarty->assign('error_message', '');
-        $smarty->assign('id', '');
-        $smarty->assign('nickname', '');
-        $smarty->assign('password', '');
-        $smarty->assign('check_pass', '');
         $smarty->display('register.html');
         exit;
     }

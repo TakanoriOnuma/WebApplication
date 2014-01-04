@@ -11,9 +11,6 @@
     // フォーム送信でない時（ログインするために来た時）
     if (!isset($_POST['id'])) {
         $smarty->assign('error_message', '');
-        $smarty->assign('id', '');
-        $smarty->assign('password', '');
-        $smarty->assign('auto_login', '');
         $smarty->display('login.html');
         exit;
     }
