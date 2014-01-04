@@ -10,7 +10,6 @@
 
     // フォーム送信でない時（登録するために来た時）
     if (!isset($_POST['id'])) {
-        $smarty->assign('error_message', '');
         $smarty->display('register.html');
         exit;
     }
@@ -41,7 +40,7 @@
 
         // エラーがあったか見る
         if ($error_message != '') {
-            $smarty->assign('error_message', '<h2>' . nl2br($error_message) . '</h2>');
+            $smarty->assign('error_message', $error_message);
             $smarty->assign('id', $_POST['id']);
             $smarty->assign('nickname', $_POST['nickname']);
             $smarty->assign('password', $_POST['password']);

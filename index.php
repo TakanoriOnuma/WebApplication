@@ -13,7 +13,6 @@
 
     // セッションにない時（まだログインしていない時)
     if (!isset($_SESSION['number'])) {
-        $smarty->assign('account_data', '');
         $smarty->display('index.html');
         exit;       
     }
@@ -45,10 +44,8 @@
     }
 
     $account_html = <<<EOM
-<p>
-会員番号：{$account_data['number']}<br />
-ニックネーム：{$account_data['nickname']}<br />
-</p>
+会員番号：{$account_data['number']}
+ニックネーム：{$account_data['nickname']}
 EOM;
     $smarty->assign('account_data', $account_html);
     $smarty->assign('account_having', 'true');

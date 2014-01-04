@@ -10,7 +10,6 @@
 
     // フォーム送信でない時（ログインするために来た時）
     if (!isset($_POST['id'])) {
-        $smarty->assign('error_message', '');
         $smarty->display('login.html');
         exit;
     }
@@ -40,7 +39,7 @@
 
         // エラーがあったかを見る
         if ($error_message != '') {
-            $smarty->assign('error_message', '<h2>' . nl2br($error_message) . '</h2>');
+            $smarty->assign('error_message', $error_message);
             $smarty->assign('id', $_POST['id']);
             $smarty->assign('password', $_POST['password']);
             $smarty->assign('auto_login', (isset($_POST['auto_login'])) ? 'checked' : '');
