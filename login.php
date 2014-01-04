@@ -68,20 +68,10 @@
 
     $_SESSION['number'] = $account_number;      // セッションに登録する
 
-    echo <<<EOM
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8" />
-<title>test</title>
-</head>
-<body>
-<p>以下のデータでログインしました。</p>
-<p>ID:{$_POST['id']}</p>
-<p>PW:{$hash_pass}</p>
-<p>AutoLogin:{$auto_login_flag}</p>
-<p><a href="index.php">トップページに戻る</a></p>
-</body>
-</html>
-EOM;
+    // ログインが成功したと伝える
+    $smarty->assign('title', 'ログイン');
+    $smarty->assign('message', 'ログインしました。');
+    $smarty->assign('webpage', 'index.php');
+    $smarty->assign('page_msg', 'トップページへ戻る');
+    $smarty->display('complete.html');
 ?>

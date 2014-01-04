@@ -69,5 +69,9 @@
     }
 
     // 登録が成功したと表示する
+    $smarty->assign('title', '登録完了');
+    $smarty->assign('message', '登録が完了しました。');
+    $smarty->assign('webpage', 'login.php');
+    $smarty->assign('page_msg', 'ログイン画面へ');
     $smarty->display('complete.html');
 ?>

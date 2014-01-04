@@ -1,20 +1,20 @@
 <?php
+    // テンプレート利用準備
+    require_once 'smarty/Smarty.class.php';
+    
+    $smarty = new Smarty();
+    $smarty->template_dir = 'templates/';
+    $smarty->compile_dir  = 'templates_c/';
+
     // セッション開始
     session_start();
 
     unset($_SESSION['number']);     // 会員番号を破棄する
 
-    echo <<<EOM
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8" />
-<title>ログアウト</title>
-</head>
-<body>
-<p>ログアウトしました。</p>
-<p><a href="index.php">トップページに戻る</a></p>
-</body>
-</html>
-EOM;
+    // ログアウトしたことを伝える
+    $smarty->assign('title', 'ログアウト');
+    $smarty->assign('message', 'ログアウトしました。');
+    $smarty->assign('webpage', 'index.php');
+    $smarty->assign('page_msg', 'トップページに戻る');
+    $smarty->display('complete.html');
 ?>
