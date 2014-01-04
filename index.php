@@ -51,5 +51,6 @@
 </p>
 EOM;
     $smarty->assign('account_data', $account_html);
+    $smarty->assign('account_having', 'true');
     $smarty->display('index.html');
 ?>
