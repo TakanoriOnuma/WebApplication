@@ -74,21 +74,17 @@ function g_start() {
     };
     // オセロの最初の状態にセット
     for (i = 0; i < 64; i++) {
-        if (table[i] !== 0) {
-            if (i == 27 || i == 36) {
-                table[i] = siro;
-                document.images[i].src = images[siro].src;
-            }
-            else {
-                if (i == 28 || i == 35) {
-                    table[i] = kuro;
-                    document.images[i].src = images[kuro].src;
-                }
-                else {
-                    table[i] = 0;
-                    document.images[i].src = images[0].src;
-                };
-            };
+        if (i == 27 || i == 36) {
+            table[i] = siro;
+            document.images[i].src = images[siro].src;
+        }
+        else if (i == 28 || i == 35) {
+                table[i] = kuro;
+                document.images[i].src = images[kuro].src;
+        }
+        else {
+            table[i] = 0;
+            document.images[i].src = images[0].src;
         };
     };
     clickok = 2; 
