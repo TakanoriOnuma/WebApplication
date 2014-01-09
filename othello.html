@@ -39,7 +39,7 @@ ikuro[45] = 17; ikuro[46] = 41; ikuro[47] = 50; ikuro[48] = 57; ikuro[49] = 62;
 ikuro[50] = 55; ikuro[51] = 15; ikuro[52] =  6; ikuro[53] =  1; ikuro[54] =  8;
 ikuro[55] = 48; ikuro[56] = 49; ikuro[57] = 54; ikuro[58] = 14; ikuro[59] =  9;
 var siro = 1; var kuro = 2;     // 白か黒かの値を定義
-var color_num;                  // 今どっちの手かを持つ
+var my_color_num;               // 今どっちの手かを持つ
 var clickok; var x; var y; var ino; 
 var up_left; var upp; var down; var left; var rgt; var up_rgt;
 var down_left; var down_rgt;
@@ -171,16 +171,16 @@ function Main_Sub() {
 //********************************************************************
 //** 置ける場所チェック **
 //********************************************************************
-function getck(x, y, irono) {
+function getck(x, y, your_color_num) {
     var iflg;
-    up_left   = ck_ok(x, y, -1, -1, irono);     // 上左方向
-    left      = ck_ok(x, y, -1,  0, irono);     // 左方向
-    down_left = ck_ok(x, y, -1,  1, irono);     // 下左方向
-    down      = ck_ok(x, y,  0,  1, irono);     // 下方向
-    down_rgt  = ck_ok(x, y,  1,  1, irono);     // 下右方向
-    rgt       = ck_ok(x, y,  1,  0, irono);     // 右方向
-    up_rgt    = ck_ok(x, y,  1, -1, irono);     // 上右方向
-    upp       = ck_ok(x, y,  0, -1, irono);     // 上方向
+    up_left   = ck_ok(x, y, -1, -1, your_color_num);     // 上左方向
+    left      = ck_ok(x, y, -1,  0, your_color_num);     // 左方向
+    down_left = ck_ok(x, y, -1,  1, your_color_num);     // 下左方向
+    down      = ck_ok(x, y,  0,  1, your_color_num);     // 下方向
+    down_rgt  = ck_ok(x, y,  1,  1, your_color_num);     // 下右方向
+    rgt       = ck_ok(x, y,  1,  0, your_color_num);     // 右方向
+    up_rgt    = ck_ok(x, y,  1, -1, your_color_num);     // 上右方向
+    upp       = ck_ok(x, y,  0, -1, your_color_num);     // 上方向
     iflg = upp + down + left + rgt + up_left + up_rgt + down_left + down_rgt;
     return iflg;
 };
@@ -188,7 +188,7 @@ function getck(x, y, irono) {
 //********************************************************************
 //** 反転数を得る **
 //********************************************************************
-function ck_ok(x, y, xx, yy, irono) {
+function ck_ok(x, y, xx, yy, your_color_num) {
     var num = 0;
     // 空白でなければNG
     if (table[x + y*8] != 0) {
@@ -200,14 +200,14 @@ function ck_ok(x, y, xx, yy, irono) {
     if (x < 0 || 7 < x || y < 0 || 7 < y) {
         return 0;
     };
-    while (table[x + y*8] == 3 - irono) {      // 相手の色(反転対象）
+    while (table[x + y*8] == 3 - your_color_num) {      // 相手の色(反転対象）
         num++; x = x + xx; y = y + yy;
         if(x < 0 || 7 < x || y < 0 || 7 < y) {
             return 0;
         };
     };
     // 自分で終わる（はさめるかチェック）
-    if (table[x + y*8] != irono) {
+    if (table[x + y*8] != your_color_num) {
         return 0;
     };
     return num;
@@ -283,64 +283,64 @@ function Hanten() {
     if (0 < upp) {
         i　=　1;
         while　(i　<　upp　+　1)　{
-            table[ino　-　8*i]　=　color_num;
-            document.images[ino　-　8*i].src　=　images[color_num].src;
+            table[ino　-　8*i]　=　my_color_num;
+            document.images[ino　-　8*i].src　=　images[my_color_num].src;
             i++;
         };
     };
     if (0 < down) {
         i = 1;
         while (i < down + 1) {
-            table[ino + 8*i] = color_num;
-            document.images[ino + 8*i].src = images[color_num].src;
+            table[ino + 8*i] = my_color_num;
+            document.images[ino + 8*i].src = images[my_color_num].src;
             i++;
         };
     };
     if (0 < rgt) {
         i = 1;
         while (i < rgt + 1) {
-            table[ino + i] = color_num;
-            document.images[ino + i].src = images[color_num].src;
+            table[ino + i] = my_color_num;
+            document.images[ino + i].src = images[my_color_num].src;
             i++;
         };
     };
     if (0 < left) {
         i = 1;
         while (i < left + 1) {
-            table[ino - i] = color_num;
-            document.images[ino - i].src = images[color_num].src;
+            table[ino - i] = my_color_num;
+            document.images[ino - i].src = images[my_color_num].src;
             i++;
         };
     };
     if (0 < up_rgt) {
         i = 1;
         while (i < up_rgt + 1) {
-            table[ino - 7*i] = color_num;
-            document.images[ino - 7*i].src = images[color_num].src;
+            table[ino - 7*i] = my_color_num;
+            document.images[ino - 7*i].src = images[my_color_num].src;
             i++;
         };
     };
     if (0 < up_left) {
         i = 1;
         while (i < up_left + 1) {
-            table[ino - 9*i] = color_num;
-            document.images[ino - 9*i].src = images[color_num].src;
+            table[ino - 9*i] = my_color_num;
+            document.images[ino - 9*i].src = images[my_color_num].src;
             i++;
         };
     };
     if (0 < down_rgt) {
         i = 1;
         while (i < down_rgt + 1) {
-            table[ino + 9*i] = color_num;
-            document.images[ino + 9*i].src = images[color_num].src;
+            table[ino + 9*i] = my_color_num;
+            document.images[ino + 9*i].src = images[my_color_num].src;
             i++;
         };
     };
     if(0 < down_left) {
         i = 1;
         while (i < down_left + 1) {
-            table[ino + 7*i] = color_num;
-            document.images[ino + 7*i].src = images[color_num].src;
+            table[ino + 7*i] = my_color_num;
+            document.images[ino + 7*i].src = images[my_color_num].src;
             i++;
         };
     };
@@ -373,11 +373,11 @@ function input_kuro(i) {
     if (clickok != 2 || table[i] != 0) {
         return;
     };
-    x = i % 8; y = (i - x) / 8; ino = i; color_num = kuro; clickok = 1;
+    x = i % 8; y = (i - x) / 8; ino = i; my_color_num = kuro; clickok = 1;
     flg = getck(x, y, kuro);
     if (flg != 0) {
-        table[ino] = color_num;
-        document.images[ino].src = images[color_num].src;
+        table[ino] = my_color_num;
+        document.images[ino].src = images[my_color_num].src;
         setTimeout('Hanten_iti()', gspeed);
     }
     else {
@@ -392,13 +392,13 @@ function input_kuro(i) {
 function settei_kuro(kuro) {
     var i;
     var flg;
-    color_num = kuro; clickok = 1; // 初期設定
+    my_color_num = kuro; clickok = 1; // 初期設定
     for (i = 0; i < 60; i++) {
         x = ikuro[i] % 8; y = (ikuro[i] - x) / 8; ino = ikuro[i];
         flg = getck(x, y, kuro);
         if (flg != 0) {
-            table[ino] = color_num;
-            document.images[ino].src = images[color_num].src;
+            table[ino] = my_color_num;
+            document.images[ino].src = images[my_color_num].src;
             setTimeout('Hanten_iti()', hspeed);
             return;
         };
@@ -413,13 +413,13 @@ function settei_kuro(kuro) {
 function settei(siro) {
     var i;
     var flg; 
-    color_num = siro; clickok = 2; // 初期化設定
+    my_color_num = siro; clickok = 2; // 初期化設定
     for (i = 0; i < 60; i++) {
         x = yusen[i] % 8; y = (yusen[i] - x) / 8; ino = yusen[i];
         flg = getck(x, y, siro);
         if (flg != 0) {
-            table[ino] = color_num;
-            document.images[ino].src = images[color_num].src; 
+            table[ino] = my_color_num;
+            document.images[ino].src = images[my_color_num].src; 
             setTimeout('Hanten_iti()', hspeed);     // 反転処理
             return;
         }
