@@ -169,18 +169,21 @@ function Main_Sub() {
 };
 
 //********************************************************************
-//** 置ける場所チェック **
+//** 置ける場所チェック                 **
+//** 反転数を8方向から得ているため、      **
+//** 0だったらどこも反転できないという意味で  **
+//** 置けるかどうかチェックする            **
 //********************************************************************
 function getck(x, y, your_color_num) {
     var iflg;
-    up_left   = ck_ok(x, y, -1, -1, your_color_num);     // 上左方向
-    left      = ck_ok(x, y, -1,  0, your_color_num);     // 左方向
-    down_left = ck_ok(x, y, -1,  1, your_color_num);     // 下左方向
-    down      = ck_ok(x, y,  0,  1, your_color_num);     // 下方向
-    down_rgt  = ck_ok(x, y,  1,  1, your_color_num);     // 下右方向
-    rgt       = ck_ok(x, y,  1,  0, your_color_num);     // 右方向
-    up_rgt    = ck_ok(x, y,  1, -1, your_color_num);     // 上右方向
-    upp       = ck_ok(x, y,  0, -1, your_color_num);     // 上方向
+    up_left   = cnt_reverse_num(x, y, -1, -1, your_color_num);     // 上左方向
+    left      = cnt_reverse_num(x, y, -1,  0, your_color_num);     // 左方向
+    down_left = cnt_reverse_num(x, y, -1,  1, your_color_num);     // 下左方向
+    down      = cnt_reverse_num(x, y,  0,  1, your_color_num);     // 下方向
+    down_rgt  = cnt_reverse_num(x, y,  1,  1, your_color_num);     // 下右方向
+    rgt       = cnt_reverse_num(x, y,  1,  0, your_color_num);     // 右方向
+    up_rgt    = cnt_reverse_num(x, y,  1, -1, your_color_num);     // 上右方向
+    upp       = cnt_reverse_num(x, y,  0, -1, your_color_num);     // 上方向
     iflg = upp + down + left + rgt + up_left + up_rgt + down_left + down_rgt;
     return iflg;
 };
@@ -188,7 +191,7 @@ function getck(x, y, your_color_num) {
 //********************************************************************
 //** 反転数を得る **
 //********************************************************************
-function ck_ok(x, y, xx, yy, your_color_num) {
+function cnt_reverse_num(x, y, xx, yy, your_color_num) {
     var num = 0;
     // 空白でなければNG
     if (table[x + y*8] != 0) {
