@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<script>
+window.addEventListener("load", function () {
+  function sendData() {
+    var XHR = new XMLHttpRequest();
+
+    // FormData オブジェクトと form 要素を紐づけます
+    var FD  = new FormData(form);
+
+    FD.append("name", "Taka");
+    FD.append("test", "tes");
+
+    // データが正常に送信された場合に行うことを定義します
+    XHR.addEventListener("load", function(event) {
+        alert(event.target.responseText);
+//      alert('send');
+    });
+
+    // エラーが発生した場合に行うことを定義します
+    XHR.addEventListener("error", function(event) {
+      alert('Oups! Something goes wrong.');
+    });
+
+    // リクエストをセットアップします
+    XHR.open("POST", "http://localhost/php/WebApplication/test.php");
+
+    // 送信したデータは、ユーザがフォームで提供したものです
+    XHR.send(FD);
+  }
+ 
+  // form 要素にアクセスしなければなりません
+  var form = document.getElementById("myForm");
+
+  // フォームの submit イベントを乗っ取ります
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    sendData();
+  });
+});
+</script>
+
+<title>test</title>
+</head>
+<body>
+
+<form id="myForm">
+  <label for="myName">Send me your name:</label>
+  <input id="myName" name="name" value="John">
+  <input type="submit" value="Send Me!">
+</form>
+
+</body>
+</html>
