@@ -38,22 +38,24 @@ ikuro[40] = 53; ikuro[41] = 46; ikuro[42] = 22; ikuro[43] = 13; ikuro[44] = 10;
 ikuro[45] = 17; ikuro[46] = 41; ikuro[47] = 50; ikuro[48] = 57; ikuro[49] = 62;
 ikuro[50] = 55; ikuro[51] = 15; ikuro[52] =  6; ikuro[53] =  1; ikuro[54] =  8;
 ikuro[55] = 48; ikuro[56] = 49; ikuro[57] = 54; ikuro[58] = 14; ikuro[59] =  9;
-var siro = 1; var kuro = 2; var clickok; var x; var y; var ino; var iro; 
+var siro = 1; var kuro = 2;     // 白か黒かの値を定義
+var color_num;                  // 今どっちの手かを持つ
+var clickok; var x; var y; var ino; 
 var up_left; var upp; var down; var left; var rgt; var up_rgt;
 var down_left; var down_rgt;
-var haichi = new Array(); 
+var table = new Array(); 
 for (i = 0; i < 64; i++) {
-    haichi[i] = 0;
+    table[i] = 0;
 };
 // 初期の配置
-haichi[27] = haichi[36] = siro;
-haichi[28] = haichi[35] = kuro;
+table[27] = table[36] = siro;
+table[28] = table[35] = kuro;
 // 画像の設定
-drawishi = new Array();
-drawishi[0] = new Image(); drawishi[0].src = "images/haikei.gif";
-drawishi[1] = new Image(); drawishi[1].src = "images/siro.gif";
-drawishi[2] = new Image(); drawishi[2].src = "images/kuro.gif";
-drawishi[3] = new Image(); drawishi[3].src = "images/hanten.gif";
+images = new Array();
+images[0] = new Image(); images[0].src = "images/haikei.gif";
+images[1] = new Image(); images[1].src = "images/siro.gif";
+images[2] = new Image(); images[2].src = "images/kuro.gif";
+images[3] = new Image(); images[3].src = "images/hanten.gif";
 
 //*******************************************************************
 //*** 開始ボタン **
@@ -72,19 +74,19 @@ function g_start() {
     };
     // オセロの最初の状態にセット
     for (i = 0; i < 64; i++) {
-        if (haichi[i] !== 0) {
+        if (table[i] !== 0) {
             if (i == 27 || i == 36) {
-                haichi[i] = siro;
-                document.images[i].src = drawishi[siro].src;
+                table[i] = siro;
+                document.images[i].src = images[siro].src;
             }
             else {
                 if (i == 28 || i == 35) {
-                    haichi[i] = kuro;
-                    document.images[i].src = drawishi[kuro].src;
+                    table[i] = kuro;
+                    document.images[i].src = images[kuro].src;
                 }
                 else {
-                    haichi[i] = 0;
-                    document.images[i].src = drawishi[0].src;
+                    table[i] = 0;
+                    document.images[i].src = images[0].src;
                 };
             };
         };
@@ -103,10 +105,10 @@ function Main_Sub() {
     var i1;
     count_kuro = count_siro = 0;
     for (i1 = 0; i1 <= 63; i1++) {
-        if (haichi[i1] == kuro) {
+        if (table[i1] == kuro) {
             count_kuro++;
         };
-        if (haichi[i1] == siro) {
+        if (table[i1] == siro) {
             count_siro++;
         };
     };
@@ -193,7 +195,7 @@ function getck(x, y, irono) {
 function ck_ok(x, y, xx, yy, irono) {
     var num = 0;
     // 空白でなければNG
-    if (haichi[x + y*8] != 0) {
+    if (table[x + y*8] != 0) {
         return 0;
     };
     // 指定の方向に1つ進む
@@ -202,14 +204,14 @@ function ck_ok(x, y, xx, yy, irono) {
     if (x < 0 || 7 < x || y < 0 || 7 < y) {
         return 0;
     };
-    while (haichi[x + y*8] == 3 - irono) {      // 相手の色(反転対象）
+    while (table[x + y*8] == 3 - irono) {      // 相手の色(反転対象）
         num++; x = x + xx; y = y + yy;
         if(x < 0 || 7 < x || y < 0 || 7 < y) {
             return 0;
         };
     };
     // 自分で終わる（はさめるかチェック）
-    if (haichi[x + y*8] != irono) {
+    if (table[x + y*8] != irono) {
         return 0;
     };
     return num;
@@ -222,56 +224,56 @@ function Hanten_iti() {
     if (0 < upp) {
         i = 1;
         while (i < upp + 1) {
-            document.images[ino - 8*i].src = drawishi[3].src;
+            document.images[ino - 8*i].src = images[3].src;
             i++;
         };
     };
     if (0 < down) { 
         i = 1;
         while (i < down + 1) {
-            document.images[ino + 8*i].src = drawishi[3].src;
+            document.images[ino + 8*i].src = images[3].src;
             i++;
         };
     };
     if (0 < rgt) {
         i = 1;
         while (i < rgt + 1) {
-            document.images[ino + i].src = drawishi[3].src;
+            document.images[ino + i].src = images[3].src;
             i++;
         };
     };
     if (0 < left) {
         i = 1;
         while (i < left + 1) {
-            document.images[ino - i].src = drawishi[3].src;
+            document.images[ino - i].src = images[3].src;
             i++;
         };
     };
     if (0 < up_rgt) {
         i = 1;
         while (i < up_rgt + 1) {
-            document.images[ino - 7*i].src = drawishi[3].src;
+            document.images[ino - 7*i].src = images[3].src;
             i++;
         };
     };
     if (0 < up_left) {
         i = 1;
         while (i < up_left + 1) {
-            document.images[ino - 9*i].src = drawishi[3].src;
+            document.images[ino - 9*i].src = images[3].src;
             i++;
         };
     };
     if (0 < down_rgt) {
         i = 1;
         while (i < down_rgt + 1) {
-            document.images[ino + 9*i].src = drawishi[3].src;
+            document.images[ino + 9*i].src = images[3].src;
             i++;
         };
     };
     if (0 < down_left) {
         i = 1;
         while (i < down_left + 1) {
-            document.images[ino + 7*i].src = drawishi[3].src;
+            document.images[ino + 7*i].src = images[3].src;
             i++;
         };
     };
@@ -285,64 +287,64 @@ function Hanten() {
     if (0 < upp) {
         i　=　1;
         while　(i　<　upp　+　1)　{
-            haichi[ino　-　8*i]　=　iro;
-            document.images[ino　-　8*i].src　=　drawishi[iro].src;
+            table[ino　-　8*i]　=　color_num;
+            document.images[ino　-　8*i].src　=　images[color_num].src;
             i++;
         };
     };
     if (0 < down) {
         i = 1;
         while (i < down + 1) {
-            haichi[ino + 8*i] = iro;
-            document.images[ino + 8*i].src = drawishi[iro].src;
+            table[ino + 8*i] = color_num;
+            document.images[ino + 8*i].src = images[color_num].src;
             i++;
         };
     };
     if (0 < rgt) {
         i = 1;
         while (i < rgt + 1) {
-            haichi[ino + i] = iro;
-            document.images[ino + i].src = drawishi[iro].src;
+            table[ino + i] = color_num;
+            document.images[ino + i].src = images[color_num].src;
             i++;
         };
     };
     if (0 < left) {
         i = 1;
         while (i < left + 1) {
-            haichi[ino - i] = iro;
-            document.images[ino - i].src = drawishi[iro].src;
+            table[ino - i] = color_num;
+            document.images[ino - i].src = images[color_num].src;
             i++;
         };
     };
     if (0 < up_rgt) {
         i = 1;
         while (i < up_rgt + 1) {
-            haichi[ino - 7*i] = iro;
-            document.images[ino - 7*i].src = drawishi[iro].src;
+            table[ino - 7*i] = color_num;
+            document.images[ino - 7*i].src = images[color_num].src;
             i++;
         };
     };
     if (0 < up_left) {
         i = 1;
         while (i < up_left + 1) {
-            haichi[ino - 9*i] = iro;
-            document.images[ino - 9*i].src = drawishi[iro].src;
+            table[ino - 9*i] = color_num;
+            document.images[ino - 9*i].src = images[color_num].src;
             i++;
         };
     };
     if (0 < down_rgt) {
         i = 1;
         while (i < down_rgt + 1) {
-            haichi[ino + 9*i] = iro;
-            document.images[ino + 9*i].src = drawishi[iro].src;
+            table[ino + 9*i] = color_num;
+            document.images[ino + 9*i].src = images[color_num].src;
             i++;
         };
     };
     if(0 < down_left) {
         i = 1;
         while (i < down_left + 1) {
-            haichi[ino + 7*i] = iro;
-            document.images[ino + 7*i].src = drawishi[iro].src;
+            table[ino + 7*i] = color_num;
+            document.images[ino + 7*i].src = images[color_num].src;
             i++;
         };
     };
@@ -372,14 +374,14 @@ function input_kuro(i) {
     var flg;
     var i0;
 
-    if (clickok != 2 || haichi[i] != 0) {
+    if (clickok != 2 || table[i] != 0) {
         return;
     };
-    x = i % 8; y = (i - x) / 8; ino = i; iro = kuro; clickok = 1;
+    x = i % 8; y = (i - x) / 8; ino = i; color_num = kuro; clickok = 1;
     flg = getck(x, y, kuro);
     if (flg != 0) {
-        haichi[ino] = iro;
-        document.images[ino].src = drawishi[iro].src;
+        table[ino] = color_num;
+        document.images[ino].src = images[color_num].src;
         setTimeout('Hanten_iti()', gspeed);
     }
     else {
@@ -394,13 +396,13 @@ function input_kuro(i) {
 function settei_kuro(kuro) {
     var i;
     var flg;
-    iro = kuro; clickok = 1; // 初期設定
+    color_num = kuro; clickok = 1; // 初期設定
     for (i = 0; i < 60; i++) {
         x = ikuro[i] % 8; y = (ikuro[i] - x) / 8; ino = ikuro[i];
         flg = getck(x, y, kuro);
         if (flg != 0) {
-            haichi[ino] = iro;
-            document.images[ino].src = drawishi[iro].src;
+            table[ino] = color_num;
+            document.images[ino].src = images[color_num].src;
             setTimeout('Hanten_iti()', hspeed);
             return;
         };
@@ -415,16 +417,16 @@ function settei_kuro(kuro) {
 function settei(siro) {
     var i;
     var flg; 
-    iro = siro; clickok = 2; // 初期化設定
+    color_num = siro; clickok = 2; // 初期化設定
     for (i = 0; i < 60; i++) {
         x = yusen[i] % 8; y = (yusen[i] - x) / 8; ino = yusen[i];
         flg = getck(x, y, siro);
         if (flg != 0) {
-            haichi[ino] = iro;
-            document.images[ino].src = drawishi[iro].src; 
+            table[ino] = color_num;
+            document.images[ino].src = images[color_num].src; 
             setTimeout('Hanten_iti()', hspeed);     // 反転処理
             return;
-        };
+        }
     };
     document.form1.info.value = "白はパスです。黒の番です。";
     Main_Sub();
@@ -461,10 +463,10 @@ for (i = 0; i < 64; i++) {
         document.write('<br />');
     };
 };
-document.images[27].src = drawishi[siro].src;
-document.images[28].src = drawishi[kuro].src;
-document.images[35].src = drawishi[kuro].src;
-document.images[36].src = drawishi[siro].src;
+document.images[27].src = images[siro].src;
+document.images[28].src = images[kuro].src;
+document.images[35].src = images[kuro].src;
+document.images[36].src = images[siro].src;
 </script>
 </td></tr>
 </table>
