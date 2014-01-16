@@ -4,5 +4,5 @@
   // ファイルデータを読み込む
   $data = file_get_contents($filename);
   // 出力
-  echo('<p>' . $data . '</p>');
+  echo('<p>' . nl2br($data) . '</p>');
 ?>

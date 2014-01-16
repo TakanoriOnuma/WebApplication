@@ -1,7 +1,7 @@
-function setDate(obj)
+function setData(filename)
 {
     var data = "";
-    data += "filename=" + obj.value + ".txt";
+    data += "filename=" + filename;
     sendRequest("POST", "./ajax_sample.php", data, false, callback);
 }
 
