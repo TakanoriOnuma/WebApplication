@@ -433,6 +433,24 @@ function settei(siro) {
 //*******************************************************************
 //** ロジック終了 **
 //*******************************************************************
+
+//*******************************************************************
+//** オセロのフィールドのセッティング **
+//*******************************************************************
+function setting() {
+    var i; var i1;
+    for (i = 0; i < 64; i++) {
+        i1 = i + 1;
+        document.write('<a href="JavaScript:input_kuro(',i,')"><img src="images/haikei.gif" width=38 height=38 border=0></a>');
+        if(i1 % 8 == 0) {
+            document.write('<br />');
+        };
+    };
+    document.images[27].src = images[siro].src;
+    document.images[28].src = images[kuro].src;
+    document.images[35].src = images[kuro].src;
+    document.images[36].src = images[siro].src;    
+}
 </script>
 
 </head>
@@ -453,19 +471,8 @@ function settei(siro) {
 
 <table align="center" border=3 bgcolor="#006633">
 <tr><td>
-<script LANGUAGE="JavaScript">
-var i; var i1;
-for (i = 0; i < 64; i++) {
-    i1 = i + 1;
-    document.write('<a href="JavaScript:input_kuro(',i,')"><img src="images/haikei.gif" width=38 height=38 border=0></a>');
-    if(i1 % 8 == 0) {
-        document.write('<br />');
-    };
-};
-document.images[27].src = images[siro].src;
-document.images[28].src = images[kuro].src;
-document.images[35].src = images[kuro].src;
-document.images[36].src = images[siro].src;
+<script language="JavaScript">
+setting();      // オセロのセッティング
 </script>
 </td></tr>
 </table>
