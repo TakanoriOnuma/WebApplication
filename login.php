@@ -10,7 +10,7 @@
 
     // フォーム送信でない時（ログインするために来た時）
     if (!isset($_POST['id'])) {
-        $smarty->display('login.html');
+        $smarty->display('login.tpl');
         exit;
     }
 
@@ -43,7 +43,7 @@
             $smarty->assign('id', $_POST['id']);
             $smarty->assign('password', $_POST['password']);
             $smarty->assign('auto_login', (isset($_POST['auto_login'])) ? 'checked' : '');
-            $smarty->display('login.html');
+            $smarty->display('login.tpl');
             exit;
         }
 
@@ -69,5 +69,5 @@
     $smarty->assign('message', 'ログインしました。');
     $smarty->assign('webpage', 'index.php');
     $smarty->assign('page_msg', 'トップページへ戻る');
-    $smarty->display('complete.html');
+    $smarty->display('complete.tpl');
 ?>

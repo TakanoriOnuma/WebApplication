@@ -13,7 +13,7 @@
 
     // セッションにない時（まだログインしていない時)
     if (!isset($_SESSION['number'])) {
-        $smarty->display('index.html');
+        $smarty->display('index.tpl');
         exit;       
     }
 
@@ -33,7 +33,7 @@
         if ($account_data == null) {
             // 会員情報なしと表示する
             $smarty->assign('account_data', 'account not found');
-            $smarty->display('index.html');
+            $smarty->display('index.tpl');
             exit;
         }
 
@@ -50,5 +50,5 @@ ID:{$account_data['id']}
 EOM;
     $smarty->assign('account_data', $account_html);
     $smarty->assign('account_having', 'true');
-    $smarty->display('index.html');
+    $smarty->display('index.tpl');
 ?>
