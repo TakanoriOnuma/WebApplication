@@ -16,5 +16,5 @@
     $smarty->assign('message', 'ログアウトしました。');
     $smarty->assign('webpage', 'index.php');
     $smarty->assign('page_msg', 'トップページに戻る');
-    $smarty->display('complete.html');
+    $smarty->display('complete.tpl');
 ?>

@@ -10,7 +10,7 @@
 
     // フォーム送信でない時（登録するために来た時）
     if (!isset($_POST['id'])) {
-        $smarty->display('register.html');
+        $smarty->display('register.tpl');
         exit;
     }
 
@@ -45,7 +45,7 @@
             $smarty->assign('nickname', $_POST['nickname']);
             $smarty->assign('password', $_POST['password']);
             $smarty->assign('check_pass', $_POST['check_pass']);
-            $smarty->display('register.html');
+            $smarty->display('register.tpl');
             exit;
         }
 
@@ -68,5 +68,5 @@
     $smarty->assign('message', '登録が完了しました。');
     $smarty->assign('webpage', 'login.php');
     $smarty->assign('page_msg', 'ログイン画面へ');
-    $smarty->display('complete.html');
+    $smarty->display('complete.tpl');
 ?>
