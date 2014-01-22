@@ -25,12 +25,12 @@ window.addEventListener("load", function () {
     });
 
     // リクエストをセットアップします
-    XHR.open("POST", "http://localhost/php/WebApplication/test.php");
+    XHR.open("POST", "test.php");
 
     // 送信したデータは、ユーザがフォームで提供したものです
     XHR.send(FD);
   }
- 
+
   // form 要素にアクセスしなければなりません
   var form = document.getElementById("myForm");
 
