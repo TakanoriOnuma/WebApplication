@@ -16,7 +16,7 @@
 
     // フォーム送信で来たとき
     try {
-        $pdo = myDataBase::createPDO();        
+        $pdo = myDataBase::createPDO();
         $pdo->query('SET NAMES utf8');
 
         $stmt = $pdo->prepare('SELECT * FROM accounts WHERE id = :id');
