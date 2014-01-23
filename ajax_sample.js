@@ -5,7 +5,14 @@ function setData(filename)
     sendRequest("POST", "./ajax_sample.php", data, false, callback);
 }
 
-function sendData(str)
+function requestData(filename)
+{
+	var data = "";
+	data += "filename=" + filename;
+	sendRequest("POST", "./out_filedata.php", data, true, callback);
+}
+
+function sendData(str, callback)
 {
 	var data = "";
 	data += "othello_data=" + str;

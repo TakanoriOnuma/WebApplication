@@ -92,7 +92,8 @@ function g_start() {
 //** メイン実行**
 //*******************************************************************
 function Main_Sub() {
-    out_othelloData('gamefield.dat');
+    out_othelloData('gamefield.dat');       // 本当はここに書くべきではない
+    read_othelloData('gamefield.dat');
     var i1;
     count_kuro = count_siro = 0;
     for (i1 = 0; i1 <= 63; i1++) {
@@ -440,6 +441,20 @@ function out_othelloData(filename) {
     }
     sendData(othello_str);
 }
+
+//*******************************************************************
+//** オセロデータ読み込み **
+//*******************************************************************
+function read_othelloData(filename) {
+    requestData(filename, read_data_callback);
+}
+
+// コールバック関数
+function read_data_callback(xmlhttp) {
+    var result = document.getElementById("result");
+    result.innerHTML = xmlhttp.responseText; 
+}
+
 
 //*******************************************************************
 //** ロジック終了 **
