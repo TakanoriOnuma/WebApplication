@@ -92,6 +92,7 @@ function g_start() {
 //** メイン実行**
 //*******************************************************************
 function Main_Sub() {
+    out_othelloData('gamefield.dat');
     var i1;
     count_kuro = count_siro = 0;
     for (i1 = 0; i1 <= 63; i1++) {
@@ -333,7 +334,7 @@ function Hanten() {
             i++;
         };
     };
-    if(0 < down_left) {
+    if (0 < down_left) {
         i = 1;
         while (i < down_left + 1) {
             table[ino + 7*i] = color_num;
@@ -424,6 +425,22 @@ function settei(siro) {
     document.form1.info.value = "白はパスです。黒の番です。";
     Main_Sub();
 };
+
+//*******************************************************************
+//** オセロデータ出力 **
+//*******************************************************************
+function out_othelloData(filename) {
+    var othello_str = "";
+    othello_str += color_num + "\n";
+    for (var i = 0; i < 8; i++) {
+        for (var j = 0; j < 8; j++) {
+            othello_str += table[i*8 + j];
+        }
+        othello_str += "\n";
+    }
+    alert(othello_str);
+}
+
 //*******************************************************************
 //** ロジック終了 **
 //*******************************************************************
