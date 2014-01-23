@@ -438,7 +438,7 @@ function out_othelloData(filename) {
         }
         othello_str += "\n";
     }
-    alert(othello_str);
+    sendData(othello_str);
 }
 
 //*******************************************************************
