@@ -16,7 +16,7 @@ function sendData(str, callback)
 {
 	var data = "";
 	data += "othello_data=" + str;
-	sendRequest("POST", "./write_data.php", data, false, callback);
+	sendRequest("POST", "./write_data.php", data, true, callback);
 }
 
 // コールバック関数
