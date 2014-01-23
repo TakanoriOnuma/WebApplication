@@ -6,12 +6,18 @@
 <script language="javascript" src="ajax.js"></script>
 <script language="javascript" src="ajax_sample.js"></script>
 <script language="javascript" type="text/JavaScript"></script>
+<script language="javascript">
+<!--
+// タイマーをセット
+function tm() {
+    tm = setInterval("setData('gamefield.dat')", 1000);
+}
+//--!>
+</script>
 </head>
-<body>
+<body onLoad="tm()">
 
-<form action="" method="post">
-<input type="button" name="" value="AJAXで送信" onClick="setData('gamefield.dat')">
-</form>
+<p>1秒ごとにデータを読み込む</p>
 
 <div id="result"></div>
 
