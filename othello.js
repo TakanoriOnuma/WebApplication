@@ -3,6 +3,7 @@
 //*******************************************************************
 var count_kuro; var count_siro; // 盤上のそれぞれの石数
 var siro_pass;  var kuro_pass;  // パスフラグ
+var myirono;        // 自分の色番号（黒か白か）
 var tysen = 1;      // デモ：１、　対人間：２
 var gspeed;         // wait時間（処理速度）
 var hspeed = 200;   // 反転スピード
@@ -58,6 +59,10 @@ function g_start() {
     var i; 
     siro_pass = kuro_pass = 0;
     gspeed = document.form1.tspeed.value;
+
+    myirono = document.form1.irono.value;
+
+    alert(myirono);
 
     // スピードの範囲を0～9000に収める
     if (gspeed < 0) {
