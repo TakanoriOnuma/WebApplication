@@ -4,6 +4,7 @@
 var count_kuro; var count_siro; // 盤上のそれぞれの石数
 var siro_pass;  var kuro_pass;  // パスフラグ
 var myirono;        // 自分の色番号（黒か白か）
+var turn;           // どっちのターンか
 var tysen = 1;      // デモ：１、　対人間：２
 var gspeed;         // wait時間（処理速度）
 var hspeed = 200;   // 反転スピード
@@ -97,8 +98,17 @@ function g_start() {
 //** メイン実行**
 //*******************************************************************
 function Main_Sub() {
-    out_othelloData('gamefield.dat');       // 本当はここに書くべきではない
+//  out_othelloData('gamefield.dat');       // 本当はここに書くべきではない
+ 
     read_othelloData('gamefield.dat');
+
+    alert(myirono + ", " + turn)
+    if (myirono == turn) {
+        alert('flag');
+        setTimeout('Main_Sub()', gspeed);
+        return;
+    }
+
     var i1;
     count_kuro = count_siro = 0;
     for (i1 = 0; i1 <= 63; i1++) {
@@ -388,6 +398,8 @@ function input_kuro(i) {
         document.form1.info.value = "そこには置けません";
         clickok = 2;
     };
+
+    out_othelloData('gamefield.dat');       // 本当はここに書くべきではない
 };
 
 //*******************************************************************
@@ -407,6 +419,8 @@ function settei_kuro(kuro) {
             return;
         };
     };
+    out_othelloData('gamefield.dat');       // 本当はここに書くべきではない
+
     document.form1.info.value = "黒はパスです。白の番です。";
     Main_Sub();
 };
@@ -428,6 +442,8 @@ function settei(siro) {
             return;
         }
     };
+    out_othelloData('gamefield.dat');       // 本当はここに書くべきではない
+
     document.form1.info.value = "白はパスです。黒の番です。";
     Main_Sub();
 };
@@ -456,8 +472,9 @@ function read_othelloData(filename) {
 
 // コールバック関数
 function read_data_callback(xmlhttp) {
-    alert('read');
     var result = document.getElementById("read_result");
+    turn = xmlhttp.responseText.split("\n")[0] - 1;
+    alert("read\n" + turn);
     result.innerHTML = xmlhttp.responseText; 
 }
 
