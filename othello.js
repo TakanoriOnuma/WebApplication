@@ -451,7 +451,8 @@ function read_othelloData(filename) {
 
 // コールバック関数
 function read_data_callback(xmlhttp) {
-    var result = document.getElementById("result");
+    alert('read');
+    var result = document.getElementById("read_result");
     result.innerHTML = xmlhttp.responseText; 
 }
 

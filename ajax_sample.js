@@ -5,14 +5,14 @@ function setData(filename)
     sendRequest("POST", "./ajax_sample.php", data, false, callback);
 }
 
-function requestData(filename)
+function requestData(filename, callback)
 {
 	var data = "";
 	data += "filename=" + filename;
 	sendRequest("POST", "./out_filedata.php", data, true, callback);
 }
 
-function sendData(str, callback)
+function sendData(str)
 {
 	var data = "";
 	data += "othello_data=" + str;
@@ -22,6 +22,7 @@ function sendData(str, callback)
 // コールバック関数
 function callback(xmlhttp)
 {
+	alert('write');
     var result = document.getElementById("result");
     result.innerHTML = xmlhttp.responseText;
 } 
