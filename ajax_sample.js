@@ -22,7 +22,7 @@ function sendData(str)
 // コールバック関数
 function callback(xmlhttp)
 {
-	alert('write');
+//	alert('write');
     var result = document.getElementById("result");
     result.innerHTML = xmlhttp.responseText;
 } 

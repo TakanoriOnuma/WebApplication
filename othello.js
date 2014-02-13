@@ -3,7 +3,6 @@
 //*******************************************************************
 var count_kuro; var count_siro; // 盤上のそれぞれの石数
 var siro_pass;  var kuro_pass;  // パスフラグ
-var myirono;        // 自分の色番号（黒か白か）
 var turn;           // どっちのターンか
 var tysen = 1;      // デモ：１、　対人間：２
 var gspeed;         // wait時間（処理速度）
@@ -61,9 +60,9 @@ function g_start() {
     siro_pass = kuro_pass = 0;
     gspeed = document.form1.tspeed.value;
 
-    myirono = document.form1.irono.value;
+    color_num = document.form1.irono.value;
 
-    alert(myirono);
+    alert(color_num);
 
     // スピードの範囲を0～9000に収める
     if (gspeed < 0) {
@@ -92,7 +91,42 @@ function g_start() {
     if (tysen == 1) {
         settei_kuro(kuro);
     };
+    
+//  out_othelloData('gamefield.dat');
 };
+
+// オセロデータをクリアー
+function _reset(filename) {
+    alert('reset');
+    color_num = document.form1.irono.value;
+    filename = 'gamefield.dat';
+    // オセロの最初の状態にセット
+    for (i = 0; i < 64; i++) {
+        if (i == 27 || i == 36) {
+            table[i] = siro;
+            document.images[i].src = images[siro].src;
+        }
+        else if (i == 28 || i == 35) {
+                table[i] = kuro;
+                document.images[i].src = images[kuro].src;
+        }
+        else {
+            table[i] = 0;
+            document.images[i].src = images[0].src;
+        };
+    };
+    out_othelloData(filename);
+}
+
+// 同期をとる
+function connect(filename) {
+    alert('connect');
+    filename = 'gamefield.dat';
+    color_num = document.form1.irono.value;
+    read_othelloData(filename);
+
+    Main_Sub();
+}
 
 //*******************************************************************
 //** メイン実行**
@@ -102,8 +136,8 @@ function Main_Sub() {
  
     read_othelloData('gamefield.dat');
 
-    alert(myirono + ", " + turn)
-    if (myirono == turn) {
+    alert(color_num + ", " + turn)
+    if (color_num == turn) {
         alert('flag');
         setTimeout('Main_Sub()', gspeed);
         return;
@@ -473,7 +507,18 @@ function read_othelloData(filename) {
 // コールバック関数
 function read_data_callback(xmlhttp) {
     var result = document.getElementById("read_result");
-    turn = xmlhttp.responseText.split("\n")[0] - 1;
+    var othello_data = xmlhttp.responseText.split("\n");
+    turn = Number(othello_data[0]) + 1;
+
+    for (var i = 0; i < 8; i++) {
+        var line = othello_data[i + 1];
+        for (var j = 0; j < 8; j++) {
+            table[i*8 + j] = line.charAt(j);
+
+            document.images[ino].src = images[table[color_num]].src; 
+        }
+    }
+
     alert("read\n" + turn);
     result.innerHTML = xmlhttp.responseText; 
 }
