@@ -1,10 +1,68 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
 <title>オセロ</title>
+<meta charset="UTF-8" />
+<script language="JavaScript">
+//*******************************************************************
+//**　グローバル変数定義（どの関数からも参照可能） **
+//*******************************************************************
+var black = 1;      // 黒
+var white = 2;      // 白
+
+var table = new Array(); 
+for (i = 0; i < 64; i++) {
+    table[i] = 0;
+};
+// 初期の配置
+table[27] = table[36] = white;
+table[28] = table[35] = black;
+// 画像の設定
+var images = new Array();
+images[0] = new Image(); images[0].src = "images/background.gif";
+images[1] = new Image(); images[1].src = "images/black.gif";
+images[2] = new Image(); images[2].src = "images/white.gif";
+images[3] = new Image(); images[3].src = "images/reverse.gif";
+
+
+//*******************************************************************
+//** (i % 8, i / 8)に石を置く **
+//*******************************************************************
+function input(i) {
+    var x, y;
+    x = i % 8;
+    y = Math.floor(i / 8);
+    alert("input:" + "(" + x + ", " + y + ")");
+};
+
+//*******************************************************************
+//** ロジック終了 **
+//*******************************************************************
+</script>
+
 </head>
-<body>
-<h1>オセロ</h1>
+
+<body bgcolor="#eeffee" text="#111122">
+<br /> 
+
+<table align="center" border=3 bgcolor="#006633">
+<tr><td>
+<script language="JavaScript">
+var i;
+// オセロの画像を設置
+for (i = 0; i < 64; i++) {
+    document.write('<a href="JavaScript:input(',i,')"><img src="images/background.gif" width=38 height=38 border=0></a>');
+    if(i % 8 == 7) {
+        document.write('<br />');
+    };
+};
+// 初期の白と黒の石を設置
+document.images[27].src = images[white].src;
+document.images[28].src = images[black].src;
+document.images[35].src = images[black].src;
+document.images[36].src = images[white].src;
+</script>
+</td></tr>
+</table>
 </body>
 </html>
