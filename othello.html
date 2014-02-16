@@ -70,7 +70,46 @@ function main() {
     document.form1.black.value = black_stone_num;
     document.form1.white.value = white_stone_num;
 
+    // パスをしてしまうか
+    if (pass_check(now_player.color + 1)) {
+        // 相手のプレイヤーを取得
+        var opp_player = (now_player == player1) ? player2 : player1;
+        // 相手もパスなら
+        if (pass_check(opp_player.color + 1)) {
+            gameset();     // 終了
+            return;
+        }
+        // 相手は出来るなら
+        else {            
+            alert(get_turn_str(now_player.color) + "はパス。");
+            setTimeout(next(), game_speed);     // 次へ回す
+            return;
+        };
+    };
+
+    // 石の数をゲームを続けられるか判断（パスフラグだけでも判断できそう）
+    if (black_stone_num + white_stone_num == 64 || black_stone_num == 0 || white_stone_num == 0) {
+        gameset();
+        return;
+    };
     now_player.input();
+};
+
+// 石が置けずにパスをするかの確認
+// stone_colorは石の色（黒(1)か白(2)）
+function pass_check(stone_color) {
+    var pass_flag = true;
+    for (var i = 0; i <= 63; i++) {
+        var x = i % 8;
+        var y = Math.floor(i / 8);
+        var rev_num = get_rev_num(x, y, stone_color);
+        // 反転できる場所があるなら
+        if (rev_num != 0){
+            pass_flag = false;      // パスはしない
+            break;
+        };
+    };
+    return pass_flag;
 }
 
 
@@ -81,7 +120,7 @@ function input(i) {
     // プレイヤーが人間か
     if (now_player instanceof Human) {
         now_player.self_input(i);
-    }
+    };
 };
 
 // 次の処理（次のプレイヤーに移る）
@@ -89,6 +128,11 @@ function next() {
     // 次のプレイヤーへ移る
     now_player = (now_player == player1) ? player2 : player1;
     main();     // メインに戻る
+}
+
+// ゲーム終了
+function gameset() {
+    alert("ゲーム終了");
 }
 
 //*******************************************************************
