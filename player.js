@@ -1,7 +1,6 @@
 //************************************************
 //** オセロのプレイヤーをクラス化する **
 //************************************************
-var game_speed = 500;		// ゲームスピード
 
 // --- Playerクラス ---//
 function Player(color) {
@@ -10,7 +9,6 @@ function Player(color) {
 
 // inputメソッドの空定義
 Player.prototype.input = function() {
-	alert("This is player class.\n" + "color:" + this.color);
 };
 
 // --- Humanクラス（人がプレイヤー） --- //
@@ -25,7 +23,6 @@ Human.prototype = new Player();
 Human.prototype.constructor = Human;
 // inputメソッドのオーバーライド
 Human.prototype.input = function() {
-	alert("This is Human class.\n" + "color:" + this.color);
 }
 // 自分でinputする（入力イベントが来て初めて入力なため、普通の入力とは少し違う）
 Human.prototype.self_input = function(i) {
