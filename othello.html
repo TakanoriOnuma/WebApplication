@@ -16,7 +16,7 @@ var white = 2;      // 白
 
 var player1 = new Human(black - 1);
 var player2 = new Human(white - 1);
-var now_player = player1;       // 今プレイするプレイヤー（石を置くプレイヤー）
+var now_player = null;       // 今プレイするプレイヤー（石を置くプレイヤー）
 
 var table = new Array(); 
 for (i = 0; i < 64; i++) {
@@ -50,6 +50,7 @@ function g_start() {
     if (game_speed > 9000) {
         game_speed = 9000;
     };
+    now_player = player1;
     main();            // メインへ飛ぶ
 }
 
@@ -117,6 +118,10 @@ function pass_check(stone_color) {
 //** (i % 8, i / 8)に石を置く **
 //*******************************************************************
 function input(i) {
+    // まだゲームを始めてないなら
+    if (now_player == null) {
+        return;         // 何もしない
+    };
     // プレイヤーが人間か
     if (now_player instanceof Human) {
         now_player.self_input(i);
@@ -132,6 +137,8 @@ function next() {
 
 // ゲーム終了
 function gameset() {
+    now_player = null;      // もうプレイヤーはいなくなる
+    
     var black_stone_num = document.form1.black.value;
     var white_stone_num = document.form1.white.value;
 
