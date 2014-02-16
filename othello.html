@@ -3,10 +3,14 @@
 <head>
 <title>オセロ</title>
 <meta charset="UTF-8" />
+<script language="JavaScript" src="player.js"></script>
 <script language="JavaScript">
 //*******************************************************************
 //**　グローバル変数定義（どの関数からも参照可能） **
 //*******************************************************************
+var player1 = new Player();
+var player2 = new Human();
+
 var black = 1;      // 黒
 var white = 2;      // 白
 
@@ -33,6 +37,9 @@ function input(i) {
     x = i % 8;
     y = Math.floor(i / 8);
     alert("input:" + "(" + x + ", " + y + ")");
+
+    player1.input(i);
+    player2.input(i);
 };
 
 //*******************************************************************
