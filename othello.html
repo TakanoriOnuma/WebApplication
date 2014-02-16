@@ -132,7 +132,22 @@ function next() {
 
 // ゲーム終了
 function gameset() {
-    alert("ゲーム終了");
+    var black_stone_num = document.form1.black.value;
+    var white_stone_num = document.form1.white.value;
+
+    var info_str = "";
+    if (black_stone_num == white_stone_num) {
+        info_str = "引き分けです";
+    }
+    else if (black_stone_num > white_stone_num) {
+        info_str = "黒の勝ちです";
+    }
+    else {
+        info_str = "白の勝ちです。";
+    };
+
+    alert("ゲーム終了\n" + info_str);
+    document.form1.info.value = info_str;
 }
 
 //*******************************************************************
