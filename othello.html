@@ -43,12 +43,28 @@ function get_turn_str(turn) {
 function g_start() {
     alert("start");
     game_speed = document.form1.game_speed.value;
+    document.form1.start_button.disabled = true;    // ボタンが使えなくなる
     // スピードの範囲を0～9000に収める
     if (game_speed < 0) {
         game_speed = 0;
     };
     if (game_speed > 9000) {
         game_speed = 9000;
+    };
+    // オセロの最初の状態にセット
+    for (var i = 0; i < 64; i++) {
+        if (i == 27 || i == 36) {
+            table[i] = white;
+            document.images[i].src = images[white].src;
+        }
+        else if (i == 28 || i == 35) {
+            table[i] = black;
+            document.images[i].src = images[black].src;
+        }
+        else {
+            table[i] = 0;
+            document.images[i].src = images[0].src;
+        };
     };
     now_player = player1;
     main();            // メインへ飛ぶ
@@ -81,7 +97,7 @@ function main() {
             return;
         }
         // 相手は出来るなら
-        else {            
+        else {
             alert(get_turn_str(now_player.color) + "はパス。");
             setTimeout(next(), game_speed);     // 次へ回す
             return;
@@ -138,7 +154,8 @@ function next() {
 // ゲーム終了
 function gameset() {
     now_player = null;      // もうプレイヤーはいなくなる
-    
+    document.form1.start_button.disabled = false;       // ボタンが使えるようになる
+
     var black_stone_num = document.form1.black.value;
     var white_stone_num = document.form1.white.value;
 
@@ -170,15 +187,13 @@ function gameset() {
 <pre>実行時間(mmsec)（0-9000の範囲）<input type="text" size="4" name="game_speed" value="1000">
 黒<input type="text" size="2" name="black" value="2">　　白<input type="text" size="2" name="white" value="2">
 <br />
-<input type="text" size="36" name="info" value="開始ボタンを押してください。">
+<input type="text" size="36" name="info" value="開始ボタンを押してください。"><br />
+<input type="button" value="スタート" name="start_button" onClick="g_start()">
 </pre>
 </font>
 </form>
 </div>
 
-<br />
-<div align="center"><input type="button" value="スタート" onClick="g_start()"></div>
-<br />
 <table align="center" border=3 bgcolor="#006633">
 <tr><td>
 <script language="JavaScript">
