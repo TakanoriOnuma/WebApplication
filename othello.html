@@ -8,11 +8,11 @@
 //*******************************************************************
 //**　グローバル変数定義（どの関数からも参照可能） **
 //*******************************************************************
-var player1 = new Player();
-var player2 = new Human();
-
 var black = 1;      // 黒
 var white = 2;      // 白
+
+var player1 = new Player(black - 1);
+var player2 = new Human(white - 1);
 
 var table = new Array(); 
 for (i = 0; i < 64; i++) {
