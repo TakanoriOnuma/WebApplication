@@ -15,6 +15,7 @@ Player.prototype.input = function() {
 function Human(color) {
 	// 親クラスPlayerのコンストラクタを呼ぶ
 	Player.call(this, color);
+    this.input_flag = false;        // 入力を受け付けるか
 }
 
 // Playerのメソッドを継承する
@@ -23,20 +24,24 @@ Human.prototype = new Player();
 Human.prototype.constructor = Human;
 // inputメソッドのオーバーライド
 Human.prototype.input = function() {
+    this.input_flag = true;         // 入力を受け付ける
 }
 // 自分でinputする（入力イベントが来て初めて入力なため、普通の入力とは少し違う）
 Human.prototype.self_input = function(i) {
-    var x, y;
-    x = i % 8;
-    y = Math.floor(i / 8);
-    var rev_num = get_rev_num(x, y, this.color + 1);
-    // 反転できるなら
-    if (rev_num > 0) {
-    	// そこに石を置く
-	    document.images[i].src = images[this.color + 1].src;
-	    table[i] = this.color + 1;
-	    inp_index = i;		// 石を置く場所を入れておく（反転処理で使う）
-	    setTimeout('rev_motion()', rev_motion_speed);   	
+    if (this.input_flag) {
+        var x, y;
+        x = i % 8;
+        y = Math.floor(i / 8);
+        var rev_num = get_rev_num(x, y, this.color + 1);
+        // 反転できるなら
+        if (rev_num > 0) {
+            // そこに石を置く
+            document.images[i].src = images[this.color + 1].src;
+            table[i] = this.color + 1;
+            inp_index = i;              // 石を置く場所を入れておく（反転処理で使う）
+            this.input_flag = false;    // 入力を受け付けない
+            setTimeout('rev_motion()', rev_motion_speed);
+        }
     }
 }
 
