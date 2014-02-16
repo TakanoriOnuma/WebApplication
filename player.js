@@ -25,3 +25,11 @@ Human.prototype.constructor = Human;
 Human.prototype.input = function(i) {
 	alert("This is Human class.\n" + "color:" + this.color);
 }
+// 自分でinputする（入力イベントが来て初めて入力なため、普通の入力とは少し違う）
+Human.prototype.self_input = function(i) {
+    var x, y;
+    x = i % 8;
+    y = Math.floor(i / 8);
+    alert("self_input:" + "(" + x + ", " + y + ")");
+    document.images[i].src = images[this.color + 1].src;
+}

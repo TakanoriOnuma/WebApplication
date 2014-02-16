@@ -33,10 +33,12 @@ images[3] = new Image(); images[3].src = "images/reverse.gif";
 //** (i % 8, i / 8)に石を置く **
 //*******************************************************************
 function input(i) {
-    var x, y;
-    x = i % 8;
-    y = Math.floor(i / 8);
-    alert("input:" + "(" + x + ", " + y + ")");
+    if (player1 instanceof Human) {
+        player1.self_input(i);
+    }
+    if (player2 instanceof Human) {
+        player2.self_input(i);
+    }
 
     player1.input(i);
     player2.input(i);
