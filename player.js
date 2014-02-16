@@ -32,4 +32,5 @@ Human.prototype.self_input = function(i) {
     y = Math.floor(i / 8);
     alert("self_input:" + "(" + x + ", " + y + ")");
     document.images[i].src = images[this.color + 1].src;
+    next();		// 次へいく
 }

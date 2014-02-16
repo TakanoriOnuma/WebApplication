@@ -11,7 +11,9 @@
 var black = 1;      // 黒
 var white = 2;      // 白
 
-var player1 = new Player(black - 1);
+var turn = black - 1;   // どっちの番かを持っておく
+
+var player1 = new Human(black - 1);
 var player2 = new Human(white - 1);
 
 var table = new Array(); 
@@ -33,16 +35,26 @@ images[3] = new Image(); images[3].src = "images/reverse.gif";
 //** (i % 8, i / 8)に石を置く **
 //*******************************************************************
 function input(i) {
-    if (player1 instanceof Human) {
-        player1.self_input(i);
+    // player1のターンか
+    if (turn == player1.color) {
+        // プレイヤーが人間か
+        if (player1 instanceof Human) {
+            player1.self_input(i);
+        }       
     }
-    if (player2 instanceof Human) {
-        player2.self_input(i);
+    // player2のターン
+    else {
+        // プレイヤーが人間か
+        if (player2 instanceof Human) {
+            player2.self_input(i);
+        }
     }
-
-    player1.input(i);
-    player2.input(i);
 };
+
+// 仮の次の処理（入力後の反転処理などがここに入る）
+function next() {
+    turn = (turn + 1) % 2;      // 次のターンに移る
+}
 
 //*******************************************************************
 //** ロジック終了 **
