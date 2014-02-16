@@ -58,6 +58,17 @@ function g_start() {
 //*******************************************************************
 function main() {
     document.form1.info.value = get_turn_str(now_player.color) + "の番";
+    var black_stone_num = white_stone_num = 0;
+    for (var i = 0; i <= 63; i++) {
+        if (table[i] == black) {
+            black_stone_num++;
+        };
+        if (table[i] == white) {
+            white_stone_num++;
+        };
+    };
+    document.form1.black.value = black_stone_num;
+    document.form1.white.value = white_stone_num;
 
     now_player.input();
 }
