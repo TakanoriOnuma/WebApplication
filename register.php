@@ -57,6 +57,18 @@
         $stmt->bindValue(':password', $hash_pass);
         $stmt->execute();
 
+        // このIDの会員番号を取得する
+        $stmt = $pdo->prepare('SELECT * FROM accounts WHERE id = :id');
+        $stmt->bindValue(':id', $_POST['id']);
+        $stmt->execute();
+
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // ゲームスコアテーブルも作成する
+        $stmt = $pdo->prepare('INSERT INTO game_scores VALUES(:no, 0, 0)');
+        $stmt->bindValue(':no', $data['number']);
+        $stmt->execute();
+
         $pdo = null;        // データベースとの接続を終了する
     }
     catch(PDOException $e) {
