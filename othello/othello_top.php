@@ -50,14 +50,25 @@
 勝数：{$game_score['winning_num']}
 勝率：{$winning_rate}%
 EOM;
-        // 必要なデータをアサインする
+        // 自分の情報をアサインする
         $smarty->assign('game_data', $game_data_str);
 
-        $smarty->display('othello_top.tpl');
-    
         $pdo = null;        // データベースとの接続を終了する
     }
     catch (PDOException $e) {
         exit($e->getMessage());
     }
+
+    $base_file_format = "room/game_player_%d.dat";
+    $room_str = "";
+    for ($i = 0; $i < 100; $i++) {
+        $filename = sprintf($base_file_format, $i);
+        if (file_exists($filename)) {
+            $room_str .= "<a href=\"othello.php?room_no={$i}\">{$filename}</a>\n";
+        }
+    }
+    // 部屋の情報をアサインする
+    $smarty->assign('room', $room_str);
+    // 結果を表示する
+    $smarty->display('othello_top.tpl');
 ?>
