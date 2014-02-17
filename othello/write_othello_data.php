@@ -2,10 +2,18 @@
     // POST取得
     $filename     = $_POST['filename'];
     $othello_data = $_POST['othello_data'];
-    $stone_color  = $_POST['stone_color'];
+    $color        = $_POST['color'];
     $inp_index    = $_POST['inp_index'];
     $x = $inp_index % 8;
     $y = (int)($inp_index / 8);
+
+    // pass情報を入力しろときたら
+    if ($inp_index == "pass") {
+        $fp = fopen($filename, "a");
+        fwrite($fp, "\n{$color}:pass");
+        fclose($fp);
+        exit();         // 終了する
+    }
 
     // 今現在のファイルデータを読み込む
     $past_data = file_get_contents($filename);
@@ -24,7 +32,7 @@
     };
     
     // 現在の入力データを書き込む
-    fwrite($fp, "{$stone_color}:{$x},{$y}");
+    fwrite($fp, "{$color}:{$x},{$y}");
 
     fclose($fp);
 ?>

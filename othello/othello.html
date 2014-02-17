@@ -158,8 +158,13 @@ function main() {
         }
         // 相手は出来るなら
         else {
-            alert(get_turn_str(now_player.color) + "はパス。");
-            setTimeout(next(), game_speed);     // 次へ回す
+
+            // 相手（player2）がOnlinePlayerならこのパス情報を記録する
+            if (player2 instanceof OnlinePlayer) {
+                send_othello_data(filename, "no change", now_player.color, "pass", alert_pass);
+                return;
+            };
+            alert_pass();
             return;
         };
     };
@@ -170,6 +175,12 @@ function main() {
         return;
     };
     now_player.input();
+};
+
+// パスをすると伝える
+function alert_pass() {
+    alert(get_turn_str(now_player.color) + "はパス。");
+    setTimeout(next(), game_speed);     // 次へ回す
 };
 
 // 石が置けずにパスをするかの確認

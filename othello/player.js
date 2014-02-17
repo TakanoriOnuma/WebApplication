@@ -154,6 +154,14 @@ OnlinePlayer.prototype.file_receive = function(xmlhttp) {
     // 入力しているデータがあるなら
     if (tail_data_str.indexOf(":") != -1) {
         var split_str = tail_data_str.split(":");
+
+        // パスのログだったら
+        if (split_str[1] == "pass") {
+            // 次の入力を待つ
+            setTimeout(function(e){ e.waiting_input(); }, game_speed, this);    
+            return;
+        };
+        
         var color = Number(split_str[0]);
         var x = Number(split_str[1].split(",")[0]);
         var y = Number(split_str[1].split(",")[1]);
