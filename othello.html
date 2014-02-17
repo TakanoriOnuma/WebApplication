@@ -16,6 +16,7 @@ var game_speed = 500;       // ゲームスピード
 var black = 1;      // 黒
 var white = 2;      // 白
 
+var use_server_flag = false;        // サーバーに通信を行うか否か
 var filename = "gamefield.dat";     // とりあえずの共有するファイル名
 var player1 = new Human(black - 1);
 var player2 = new OnlinePlayer(white - 1, filename);
@@ -70,6 +71,13 @@ function g_start() {
         };
     };
     now_player = player1;
+    // サーバーと通信を行うかのフラグをチェック
+    if (player1 instanceof OnlinePlayer || player2 instanceof OnlinePlayer) {
+        use_server_flag = true;
+    }
+    else {
+        use_server_flag = false;
+    };
     main();            // メインへ飛ぶ
 }
 

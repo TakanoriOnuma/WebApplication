@@ -188,5 +188,20 @@ function reverse() {
             i++;
         };
     };
+    // サーバーと通信する必要があって、自分がOnlinePlayerでなければ
+    if (use_server_flag && !(now_player instanceof OnlinePlayer)) {
+        // サーバーにオセロデータを送る
+        var othello_data_str = "";
+        for (var i = 0; i < 8; i++) {
+            for (var j = 0; j < 8; j++) {
+                othello_data_str += table[i*8 + j];
+            }
+            othello_data_str += "\n";
+        }
+        // 一番後ろの改行を削除
+        othello_data_str = othello_data_str.slice(0, -1);
+        // オセロデータを送る
+        send_othello_data(filename, othello_data_str, now_player.color + 1, inp_index);
+    };
     next();		// 次へいく
 };
