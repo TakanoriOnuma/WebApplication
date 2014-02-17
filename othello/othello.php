@@ -35,7 +35,8 @@
         if ($_GET['command'] == "create") {
             // 連番が記録してあるファイルを読み込んで1だけインクリメントする
             $no = file_get_contents($room_dir . 'serial_number.dat');
-            file_put_contents($room_dir . 'serial_number.dat', $no + 1);
+            // 100を超えないように連番をつける
+            file_put_contents($room_dir . 'serial_number.dat', ($no + 1) % 100);
 
             // プレイヤーの情報を書き込む
             $nickname = get_nickname($_SESSION['number']);
