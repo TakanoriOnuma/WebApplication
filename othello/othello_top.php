@@ -93,6 +93,7 @@ EOM;
     // 結果を表示する
     $smarty->display('othello_top.tpl');
 
+    // 30分以上前のファイルは削除する
     function file_remove($filename) {
         if (file_exists($filename)) {
             $now = time();                          // 現在の時刻を取得
