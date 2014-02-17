@@ -55,10 +55,16 @@ EOM;
     }
 
     // 0～99までのファイルをチェックする
-    $base_file_format = "room/game_player_%d.dat";
+    $room_dir = "room/";
+    $game_player_file_format = $room_dir . "game_player_%d.dat";
+    $gamefield_file_format   = $room_dir . "gamefield_%d.dat";
     $room_str = "";
     for ($i = 0; $i < 100; $i++) {
-        $filename = sprintf($base_file_format, $i);
+        // ついでに確認して消しておく
+        file_remove(sprintf($gamefield_file_format, $i));
+
+        $filename = sprintf($game_player_file_format, $i);
+        file_remove($filename);
         if (file_exists($filename)) {
             // ファイルの読み込み
             $fp = fopen($filename, "r");
@@ -86,4 +92,15 @@ EOM;
     $smarty->assign('room', $room_str);
     // 結果を表示する
     $smarty->display('othello_top.tpl');
+
+    function file_remove($filename) {
+        if (file_exists($filename)) {
+            $now = time();                          // 現在の時刻を取得
+            $file_time = filemtime($filename);      // ファイルの更新時刻を取得
+            // ファイルが30分以上更新がなかった場合
+            if ($now > $file_time + 30 * 60) {
+                unlink($filename);          // そのファイルを削除する
+            }
+        }
+    }
 ?>
