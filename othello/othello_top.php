@@ -83,7 +83,7 @@ EOM;
             }
             // 相手がいたら
             else {
-                 $room_str .= "{$room_name}（対戦中）\n";           
+                 $room_str .= "{$room_name}（対戦中）\n";
             }
         }
     }

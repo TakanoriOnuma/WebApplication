@@ -20,7 +20,7 @@ var white = 2;      // 白
 var own_color = {$own_color};       // どっちが自分か（黒(0)、白(1)）
 
 var use_server_flag = false;        // サーバーに通信を行うか否か
-var filename = "gamefield.dat";     // とりあえずの共有するファイル名
+var filename = "{$share_filename|default: ''}";    // 共有するファイル名
 var player1;        // プレイヤー1
 var player2;        // プレイヤー2
 var now_player = null;       // 今プレイするプレイヤー（石を置くプレイヤー）
