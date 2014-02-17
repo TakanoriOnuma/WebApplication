@@ -144,9 +144,8 @@ OnlinePlayer.prototype.input = function() {
 OnlinePlayer.prototype.waiting_input = function() {
     alert("waiting for input");
 
-    var data = "filename=" + this.filename;
-    sendRequest("POST", "./file_receiver.php", data, false, callback);
-
+    file_receive(this.filename, callback);
+    
     // thisオブジェクトを無名関数の引数に渡して実行できるようにした
     setTimeout(function(e){ e.waiting_input(); }, game_speed, this);
 };
