@@ -19,8 +19,8 @@ var white = 2;      // 白
 
 var use_server_flag = false;        // サーバーに通信を行うか否か
 var filename = "gamefield.dat";     // とりあえずの共有するファイル名
-var player1 = new Human(black - 1);
-var player2 = new OnlinePlayer(white - 1, filename);
+var player1;
+var player2;
 var now_player = null;       // 今プレイするプレイヤー（石を置くプレイヤー）
 
 var table = new Array(); 
@@ -75,15 +75,8 @@ function create_player(player_name, color) {
 function g_start() {
     alert("start");
 
-    // 黒の情報を得る
-    var black_index  = document.form1.black_player.selectedIndex;
-    var black_player = document.form1.black_player.options[black_index].value;
-    player1 = create_player(black_player, black - 1);
-
-    // 白の情報を得る
-    var white_index  = document.form1.white_player.selectedIndex;
-    var white_player = document.form1.white_player.options[white_index].value;
-    player2 = create_player(white_player, white - 1);
+    player1 = create_player("{$black_player}", black - 1);
+    player2 = create_player("{$white_player}", white - 1);
 
     game_speed = document.form1.game_speed.value;
     document.form1.start_button.disabled = true;    // ボタンを使えなくする
@@ -256,21 +249,6 @@ function gameset() {
 <div align="center">
 <form name="form1"><font size="3" font color="#000000">
 <pre>実行時間(msec)（100-9000の範囲）<input type="text" size="4" name="game_speed" value="1000"><br />
-<p>黒
-<select name="black_player">
-    <option value="human">人間</option>
-    <option value="AI">コンピュータ</option>
-    <option value="online_player">オンラインプレイヤー</option>
-</select>
-</p>
-<p>白
-<select name="white_player">
-    <option value="human">人間</option>
-    <option value="AI">コンピュータ</option>
-    <option value="online_player">オンラインプレイヤー</option>
-</select>
-</p>
-
 黒<input type="text" size="2" name="black" value="2">　　白<input type="text" size="2" name="white" value="2">
 <br />
 <input type="text" size="36" name="info" value="開始ボタンを押してください。"><br />
