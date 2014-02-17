@@ -198,8 +198,6 @@ function reverse() {
             }
             othello_data_str += "\n";
         }
-        // 一番後ろの改行を削除
-        othello_data_str = othello_data_str.slice(0, -1);
         // オセロデータを送る
         send_othello_data(filename, othello_data_str, now_player.color + 1, inp_index);
     };
