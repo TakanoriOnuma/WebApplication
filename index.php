@@ -3,7 +3,7 @@
 
     // テンプレート利用準備
     require_once 'smarty/Smarty.class.php';
-    
+
     $smarty = new Smarty();
     $smarty->template_dir = 'templates/';
     $smarty->compile_dir  = 'templates_c/';
@@ -14,7 +14,7 @@
     // セッションにない時（まだログインしていない時)
     if (!isset($_SESSION['number'])) {
         $smarty->display('index.tpl');
-        exit;       
+        exit;
     }
 
     $account_data;      // 会員情報を持つ
@@ -22,7 +22,7 @@
     try {
         $pdo = myDataBase::createPDO();
         $pdo->query('SET NAMES utf8');
-    
+
         $stmt = $pdo->prepare('SELECT * FROM accounts WHERE number = :number');
         $stmt->bindValue(':number', $_SESSION['number'], PDO::PARAM_INT);
         $stmt->execute();
