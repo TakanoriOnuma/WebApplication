@@ -9,10 +9,14 @@
 {$game_data|nl2br}
 </p>
 <h2>部屋</h2>
-
+{if $room != ""}
 <p>
-<a href="">新しい部屋を作成する</a><br />
-<a href="othello.php">コンピュータと対戦する</a>
+{$room|nl2br}
+</p>
+{/if}
+<p>
+<a href="othello.php?command=create">新しい部屋を作成する</a><br />
+<a href="othello.php?play=computer">コンピュータと対戦する</a>
 </p>
 </body>
 </html>
