@@ -226,19 +226,33 @@ function gameset() {
     var white_stone_num = document.form1.white.value;
 
     var info_str = "";
+    var result_str = "";
     if (black_stone_num == white_stone_num) {
         info_str = "引き分けです";
+        result_str = "draw";
     }
     else if (black_stone_num > white_stone_num) {
         info_str = "黒の勝ちです";
+        // 自分が黒なら勝ち
+        result_str = (own_color == 0) ? "win" : "lose";
     }
     else {
         info_str = "白の勝ちです。";
+        // 自分が黒なら負け
+        result_str = (own_color == 0) ? "lose" : "win";
     };
 
     alert("ゲーム終了\n" + info_str);
     document.form1.info.value = info_str;
+
+    record_score(result_str);
 }
+
+// 結果をPHPを通してデータベースに記録する
+function record_score(result_str) {
+    var data = "result_str=" + result_str;
+    sendRequest("POST", "./record_score.php", data, false, null);
+};
 
 //*******************************************************************
 //** ロジック終了 **
