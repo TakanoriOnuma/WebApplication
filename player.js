@@ -145,10 +145,10 @@ OnlinePlayer.prototype.waiting_input = function() {
     alert("waiting for input");
 
     // サーバーにあるファイルデータを貰う
-    file_receive(this.filename, this.callback, this);
+    file_receive(this.filename, this.file_receive, this);
 };
 // コールバック関数（サーバーにあるファイルデータを貰った結果）
-OnlinePlayer.prototype.callback = function(xmlhttp) {
+OnlinePlayer.prototype.file_receive = function(xmlhttp) {
     alert("this is class\n" + xmlhttp.responseText);
 
     // thisオブジェクトを無名関数の引数に渡して実行できるようにした
