@@ -21,12 +21,7 @@
         $pdo->query('SET NAMES utf8');
 
         // ニックネームの読み込み
-        $stmt = $pdo->prepare('SELECT * FROM accounts WHERE number = :number');
-        $stmt->bindValue(':number', $_SESSION['number'], PDO::PARAM_INT);
-        $stmt->execute();
-
-        $account_data = $stmt->fetch(PDO::FETCH_ASSOC);
-        $nickname = $account_data['nickname'];
+        $nickname = get_nickname($_SESSION['number']);
 
         // ゲームスコアの読み込み
         $stmt = $pdo->prepare('SELECT * FROM game_scores WHERE number = :number');
@@ -75,7 +70,7 @@ EOM;
             // ファイルを閉じる
             fclose($fp);
 
-            $black_name = mb_substr($black_name, 0, -2);
+            $black_name = mb_substr($black_name, 0, -1);
             $room_name = $black_name . "さんの部屋";
             // 相手がいないなら
             if ($white_name == "") {
