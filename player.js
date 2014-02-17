@@ -56,7 +56,8 @@ AI1.prototype = new Player();
 AI1.prototype.constructor = AI1;
 // inputメソッドのオーバーライド
 AI1.prototype.input = function() {
-	setTimeout(this.auto_input(), game_speed);
+    // thisオブジェクトを無名関数の引数に渡して実行できるようにした
+	setTimeout(function(e){ e.auto_input(); }, game_speed, this);
 };
 // データを定義する
 AI1.priority = new Array(2);
