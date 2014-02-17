@@ -149,7 +149,9 @@ OnlinePlayer.prototype.waiting_input = function() {
 };
 // コールバック関数（サーバーにあるファイルデータを貰った結果）
 OnlinePlayer.prototype.file_receive = function(xmlhttp) {
-    alert("this is class\n" + xmlhttp.responseText);
+    // 末尾データを見る
+    var othello_data_strs = xmlhttp.responseText.split("\n");
+    alert(othello_data_strs[othello_data_strs.length - 1]);
 
     // thisオブジェクトを無名関数の引数に渡して実行できるようにした
     setTimeout(function(e){ e.waiting_input(); }, game_speed, this);    

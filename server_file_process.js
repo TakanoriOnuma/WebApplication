@@ -14,10 +14,10 @@ function file_sender(filename, data, callback) {
     sendRequest("POST", "./file_sender.php", send_data, false, callback);
 };
 // オセロデータを書き込む
-function send_othello_data(filename, othello_data, stone_color, inp_index) {
+function send_othello_data(filename, othello_data, stone_color, inp_index, callback) {
     var data = "filename=" + filename;
     data += "&othello_data=" + othello_data;
     data += "&stone_color=" + stone_color;
     data += "&inp_index=" + inp_index;
-    sendRequest("POST", "./write_othello_data.php", data, false, function(xmlhttp){ alert(xmlhttp.responseText); });
+    sendRequest("POST", "./write_othello_data.php", data, false, callback);
 };

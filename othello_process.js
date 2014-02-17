@@ -192,8 +192,8 @@ function reverse() {
     if (use_server_flag && !(now_player instanceof OnlinePlayer)) {
         // サーバーにオセロデータを送る
         var othello_data_str = get_othello_data_str();
-        // オセロデータを送る
-        send_othello_data(filename, othello_data_str, now_player.color + 1, inp_index);
+        // オセロデータを送る（コールバックはいらない）
+        send_othello_data(filename, othello_data_str, now_player.color + 1, inp_index, null);
     };
     next();		// 次へいく
 };

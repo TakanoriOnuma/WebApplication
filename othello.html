@@ -89,8 +89,8 @@ function g_start() {
         var othello_data_str = get_othello_data_str();
         // 一番後ろの改行を取り除く
         othello_data_str = othello_data_str.slice(0, -1);
-        // サーバー上で使うファイルを初期化する
-        file_sender(filename, othello_data_str, function(xmlhttp){ alert(xmlhttp.responseText); });
+        // サーバー上で使うファイルを初期化する(callbackはいらない)
+        file_sender(filename, othello_data_str, null);
     }
     else {
         use_server_flag = false;

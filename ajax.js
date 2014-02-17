@@ -41,7 +41,12 @@ function sendRequest (method, url, data, async, callback, obj)
     // 受信時に起動するイベント
     xmlhttp.onreadystatechange = function() { 
         // readyState値は4で受信完了
-        if (xmlhttp.readyState == 4) { 
+        if (xmlhttp.readyState == 4) {
+            // callbackを求めてないなら
+            if (callback == null) {
+                return;     // 何もせずに終える
+            };
+
             // objが入ってないなら
             if (obj == null) {
                 // 通常のコールバック
