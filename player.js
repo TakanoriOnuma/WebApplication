@@ -142,8 +142,6 @@ OnlinePlayer.prototype.input = function() {
 };
 // 入力待ちをする（サーバーから入力が来るまで待つ）
 OnlinePlayer.prototype.waiting_input = function() {
-    alert("waiting for input");
-
     // サーバーにあるファイルデータを貰う
     file_receive(this.filename, this.file_receive, this);
 };
@@ -159,13 +157,10 @@ OnlinePlayer.prototype.file_receive = function(xmlhttp) {
         var color = Number(split_str[0]);
         var x = Number(split_str[1].split(",")[0]);
         var y = Number(split_str[1].split(",")[1]);
-        alert(color);
         // OnlinePlayerのデータの入力があったら
         if (color == this.color) {
             // 石を置く場所に入れておく（反転処理に使う）
             inp_index = x + 8 * y;
-
-            alert("OnlinePlayer input.\n" + color + ", " + inp_index);
 
             // 念のため確認（get_rev_numをしないと次のrev_motionが出来ない）
             var rev_num = get_rev_num(x, y, this.color + 1);

@@ -78,20 +78,18 @@ function g_start() {
     // 黒の情報を得る
     var black_index  = document.form1.black_player.selectedIndex;
     var black_player = document.form1.black_player.options[black_index].value;
-    alert(black_player);
     player1 = create_player(black_player, black - 1);
 
     // 白の情報を得る
     var white_index  = document.form1.white_player.selectedIndex;
     var white_player = document.form1.white_player.options[white_index].value;
-    alert(white_player);
     player2 = create_player(white_player, white - 1);
 
     game_speed = document.form1.game_speed.value;
     document.form1.start_button.disabled = true;    // ボタンを使えなくする
-    // スピードの範囲を0～9000に収める
-    if (game_speed < 0) {
-        game_speed = 0;
+    // スピードの範囲を100～9000に収める
+    if (game_speed < 100) {
+        game_speed = 100;
     };
     if (game_speed > 9000) {
         game_speed = 9000;
@@ -246,7 +244,7 @@ function gameset() {
 <body bgcolor="#eeffee" text="#111122">
 <div align="center">
 <form name="form1"><font size="3" font color="#000000">
-<pre>実行時間(mmsec)（0-9000の範囲）<input type="text" size="4" name="game_speed" value="1000"><br />
+<pre>実行時間(msec)（100-9000の範囲）<input type="text" size="4" name="game_speed" value="1000"><br />
 <p>黒
 <select name="black_player">
     <option value="human">人間</option>
