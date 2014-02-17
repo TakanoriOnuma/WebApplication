@@ -22,11 +22,20 @@
         $stmt = $pdo->prepare('SELECT * FROM accounts WHERE id = :id');
         $stmt->bindValue(':id', $_POST['id']);
         $stmt->execute();
+        $using_id_flag = ($stmt->fetch(PDO::FETCH_ASSOC) != null)? true : false;
+
+        $stmt = $pdo->prepare('SELECT * FROM accounts WHERE nickname = :nickname');
+        $stmt->bindValue(':nickname', $_POST['nickname']);
+        $stmt->execute();
+        $using_nickname_flag = ($stmt->fetch(PDO::FETCH_ASSOC) != null)? true : false;
 
         $error_message = '';        // エラーなしと宣言しておく
         // エラーチェック
-        if($stmt->fetch(PDO::FETCH_ASSOC)) {
+        if($using_id_flag) {
             $error_message .= "このIDは既に使われています。\n";
+        }
+        if($using_nickname_flag) {
+            $error_message .= "このニックネームは既に使われています。\n";
         }
         if ($_POST['id'] == '' or $_POST['nickname'] == '') {
             $error_message .= "IDかニックネームが記入していません。\n";
