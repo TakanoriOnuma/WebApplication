@@ -41,6 +41,18 @@ function get_turn_str(turn) {
     return (turn == black - 1) ? "黒" : "白";
 }
 
+// オセロデータを文字列にして返す
+function get_othello_data_str() {
+    var othello_data_str = "";
+    for (var i = 0; i < 8; i++) {
+        for (var j = 0; j < 8; j++) {
+            othello_data_str += table[i*8 + j];
+        };
+        othello_data_str += "\n";
+    };
+    return othello_data_str;
+};
+
 //*******************************************************************
 //** 開始(startは使えないため、g_startにした) **
 //*******************************************************************
@@ -74,6 +86,11 @@ function g_start() {
     // サーバーと通信を行うかのフラグをチェック
     if (player1 instanceof OnlinePlayer || player2 instanceof OnlinePlayer) {
         use_server_flag = true;
+        var othello_data_str = get_othello_data_str();
+        // 一番後ろの改行を取り除く
+        othello_data_str = othello_data_str.slice(0, -1);
+        // サーバー上で使うファイルを初期化する
+        file_sender(filename, othello_data_str, function(xmlhttp){ alert(xmlhttp.responseText); });
     }
     else {
         use_server_flag = false;

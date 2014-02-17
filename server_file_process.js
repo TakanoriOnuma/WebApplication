@@ -9,9 +9,9 @@ function file_receive(filename, callback, obj) {
 };
 // サーバーにあるファイルに書き込みする処理
 function file_sender(filename, data, callback) {
-    var data = "filename=" + filename;
-    data += "&data=" + data;
-    sendRequest("POST", "./file_sender.php", data, false, callback);
+    var send_data = "filename=" + filename;
+    send_data += "&data=" + data;
+    sendRequest("POST", "./file_sender.php", send_data, false, callback);
 };
 // オセロデータを書き込む
 function send_othello_data(filename, othello_data, stone_color, inp_index) {
