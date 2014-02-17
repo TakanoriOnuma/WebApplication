@@ -123,3 +123,26 @@ AI1.prototype.auto_input = function() {
         };
     };
 };
+
+
+// --- OnlinePlayerクラス（オンライン上の相手がプレイヤー） --- //
+function OnlinePlayer(color, filename) {
+    // 親クラスPlayerのコンストラクタを呼ぶ
+    Player.call(this, color);
+    this.filename = filename;       // ゲーム上で共有するファイル名を保持する
+};
+// Playerのメソッドを継承する
+OnlinePlayer.prototype = new Player();
+// コンストラクタのポインタを修正
+OnlinePlayer.prototype.constructor = OnlinePlayer;
+// inputメソッドのオーバーライド
+OnlinePlayer.prototype.input = function() {
+    // thisオブジェクトを無名関数の引数に渡して実行できるようにした
+    setTimeout(function(e){ e.waiting_input(); }, game_speed, this);
+};
+// 入力待ちをする（サーバーから入力が来るまで待つ）
+OnlinePlayer.prototype.waiting_input = function() {
+    alert("waiting for input");
+    // thisオブジェクトを無名関数の引数に渡して実行できるようにした
+    setTimeout(function(e){ e.waiting_input(); }, game_speed, this);
+};
