@@ -9,7 +9,10 @@
 {$game_data|nl2br}
 </p>
 <h2>部屋</h2>
-{if $room != ""}{$room|nl2br}
+{if $room != ""}
+<p>
+{$room|nl2br}
+</p>
 {/if}
 <p>
 <a href="">新しい部屋を作成する</a><br />

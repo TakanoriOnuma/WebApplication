@@ -59,12 +59,32 @@ EOM;
         exit($e->getMessage());
     }
 
+    // 0～99までのファイルをチェックする
     $base_file_format = "room/game_player_%d.dat";
     $room_str = "";
     for ($i = 0; $i < 100; $i++) {
         $filename = sprintf($base_file_format, $i);
         if (file_exists($filename)) {
-            $room_str .= "<a href=\"othello.php?room_no={$i}\">{$filename}</a>\n";
+            // ファイルの読み込み
+            $fp = fopen($filename, "r");
+
+            // プレイヤーの情報を読み取る
+            list($black, $black_name) = explode("：", fgets($fp));
+            list($white, $white_name) = explode("：", fgets($fp));
+
+            // ファイルを閉じる
+            fclose($fp);
+
+            $black_name = mb_substr($black_name, 0, -2);
+            $room_name = $black_name . "さんの部屋";
+            // 相手がいないなら
+            if ($white_name == "") {
+                $room_str .= "<a href=\"othello.php?room_no={$i}\">{$room_name}</a>\n";                
+            }
+            // 相手がいたら
+            else {
+                 $room_str .= "{$room_name}（対戦中）\n";           
+            }
         }
     }
     // 部屋の情報をアサインする
