@@ -33,7 +33,7 @@ function createHttpRequest()
 };
 
 // ファイルにアクセスし受信内容を確認します
-function sendRequest (method, url, data, async, callback)
+function sendRequest (method, url, data, async, callback, obj)
 {
     // XMLHttpRequestオブジェクト生成
     var xmlhttp = createHttpRequest();
@@ -42,8 +42,16 @@ function sendRequest (method, url, data, async, callback)
     xmlhttp.onreadystatechange = function() { 
         // readyState値は4で受信完了
         if (xmlhttp.readyState == 4) { 
-            // コールバック
-            callback(xmlhttp);
+            // objが入ってないなら
+            if (obj == null) {
+                // 通常のコールバック
+                callback(xmlhttp);                
+            }
+            // もしあれば
+            else {
+                // クラスを使ったコールバック
+                callback.call(obj, xmlhttp);
+            };
         };
     };
     // open メソッド

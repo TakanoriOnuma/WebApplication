@@ -144,10 +144,15 @@ OnlinePlayer.prototype.input = function() {
 OnlinePlayer.prototype.waiting_input = function() {
     alert("waiting for input");
 
-    file_receive(this.filename, callback);
-    
+    // サーバーにあるファイルデータを貰う
+    file_receive(this.filename, this.callback, this);
+};
+// コールバック関数（サーバーにあるファイルデータを貰った結果）
+OnlinePlayer.prototype.callback = function(xmlhttp) {
+    alert("this is class\n" + xmlhttp.responseText);
+
     // thisオブジェクトを無名関数の引数に渡して実行できるようにした
-    setTimeout(function(e){ e.waiting_input(); }, game_speed, this);
+    setTimeout(function(e){ e.waiting_input(); }, game_speed, this);    
 };
 
 // とりあえず
