@@ -16,7 +16,7 @@
 <li><a href="guide.html">ガイド</a></li>
 <li><a href="ranking.html">ランキング</a></li>
 <li><a href="test.html">テストページ</a></li>
-<li><a href="othello/othello.html">ゲーム</a></li>
+<li><a href="othello/othello_top.php">ゲーム</a></li>
 </ul>
 </body>
 </html>
