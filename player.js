@@ -152,32 +152,36 @@ OnlinePlayer.prototype.file_receive = function(xmlhttp) {
     // 末尾データを見る
     var othello_data_strs = xmlhttp.responseText.split("\n");
     var tail_data_str = othello_data_strs[othello_data_strs.length - 1];
-    var split_str = tail_data_str.split(":");
-    var color = Number(split_str[0]);
-    var x = Number(split_str[1].split(",")[0]);
-    var y = Number(split_str[1].split(",")[1]);
-    alert(color);
-    // OnlinePlayerのデータの入力があったら
-    if (color == this.color) {
-        // 石を置く場所に入れておく（反転処理に使う）
-        inp_index = x + 8 * y;
 
-        alert("OnlinePlayer input.\n" + color + ", " + inp_index);
+    // 入力しているデータがあるなら
+    if (tail_data_str.indexOf(":") != -1) {
+        var split_str = tail_data_str.split(":");
+        var color = Number(split_str[0]);
+        var x = Number(split_str[1].split(",")[0]);
+        var y = Number(split_str[1].split(",")[1]);
+        alert(color);
+        // OnlinePlayerのデータの入力があったら
+        if (color == this.color) {
+            // 石を置く場所に入れておく（反転処理に使う）
+            inp_index = x + 8 * y;
 
-        // 念のため確認（get_rev_numをしないと次のrev_motionが出来ない）
-        var rev_num = get_rev_num(x, y, this.color + 1);
-        // 反転できないなら
-        if (rev_num == 0) {
-            alert("error");     // エラー
-            return;             // 取りあえず処理を終了する
+            alert("OnlinePlayer input.\n" + color + ", " + inp_index);
+
+            // 念のため確認（get_rev_numをしないと次のrev_motionが出来ない）
+            var rev_num = get_rev_num(x, y, this.color + 1);
+            // 反転できないなら
+            if (rev_num == 0) {
+                alert("error");     // エラー
+                return;             // 取りあえず処理を終了する
+            };
+
+            // そこに石を置く
+            document.images[inp_index].src = images[this.color + 1].src;
+            table[inp_index] = this.color + 1;
+            setTimeout('rev_motion()', rev_motion_speed);
+
+            return;     // 処理を終了する
         };
-
-        // そこに石を置く
-        document.images[inp_index].src = images[this.color + 1].src;
-        table[inp_index] = this.color + 1;
-        setTimeout('rev_motion()', rev_motion_speed);
-
-        return;     // 処理を終了する
     };
 
     // thisオブジェクトを無名関数の引数に渡して実行できるようにした

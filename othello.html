@@ -13,6 +13,7 @@
 //*******************************************************************
 var game_speed = 500;       // ゲームスピード
 
+// 石の色データ（オセロ盤で使われる変数）
 var black = 1;      // 黒
 var white = 2;      // 白
 
@@ -53,13 +54,41 @@ function get_othello_data_str() {
     return othello_data_str;
 };
 
+// 文字列を引数にプレイヤーを生成する
+function create_player(player_name, color) {
+    var player;
+    if (player_name == "human") {
+        player = new Human(color);
+    }
+    else if (player_name == "AI") {
+        player = new AI1(color);
+    }
+    else if (player_name == "online_player") {
+        player = new OnlinePlayer(color, filename);
+    };
+
+    return player;
+};
 //*******************************************************************
 //** 開始(startは使えないため、g_startにした) **
 //*******************************************************************
 function g_start() {
     alert("start");
+
+    // 黒の情報を得る
+    var black_index  = document.form1.black_player.selectedIndex;
+    var black_player = document.form1.black_player.options[black_index].value;
+    alert(black_player);
+    player1 = create_player(black_player, black - 1);
+
+    // 白の情報を得る
+    var white_index  = document.form1.white_player.selectedIndex;
+    var white_player = document.form1.white_player.options[white_index].value;
+    alert(white_player);
+    player2 = create_player(white_player, white - 1);
+
     game_speed = document.form1.game_speed.value;
-    document.form1.start_button.disabled = true;    // ボタンが使えなくなる
+    document.form1.start_button.disabled = true;    // ボタンを使えなくする
     // スピードの範囲を0～9000に収める
     if (game_speed < 0) {
         game_speed = 0;
@@ -86,11 +115,16 @@ function g_start() {
     // サーバーと通信を行うかのフラグをチェック
     if (player1 instanceof OnlinePlayer || player2 instanceof OnlinePlayer) {
         use_server_flag = true;
-        var othello_data_str = get_othello_data_str();
-        // 一番後ろの改行を取り除く
-        othello_data_str = othello_data_str.slice(0, -1);
-        // サーバー上で使うファイルを初期化する(callbackはいらない)
-        file_sender(filename, othello_data_str, null);
+
+        // 相手プレイヤーがオンラインプレイヤーの時だけ初期化を行う
+        // (相手も初期化したらマズいことになる可能性が)
+        if (player2 instanceof OnlinePlayer) {
+            var othello_data_str = get_othello_data_str();
+            // 一番後ろの改行を取り除く
+            othello_data_str = othello_data_str.slice(0, -1);
+            // サーバー上で使うファイルを初期化する(callbackはいらない)
+            file_sender(filename, othello_data_str, null);
+        };
     }
     else {
         use_server_flag = false;
@@ -212,7 +246,22 @@ function gameset() {
 <body bgcolor="#eeffee" text="#111122">
 <div align="center">
 <form name="form1"><font size="3" font color="#000000">
-<pre>実行時間(mmsec)（0-9000の範囲）<input type="text" size="4" name="game_speed" value="1000">
+<pre>実行時間(mmsec)（0-9000の範囲）<input type="text" size="4" name="game_speed" value="1000"><br />
+<p>黒
+<select name="black_player">
+    <option value="human">人間</option>
+    <option value="AI">コンピュータ</option>
+    <option value="online_player">オンラインプレイヤー</option>
+</select>
+</p>
+<p>白
+<select name="white_player">
+    <option value="human">人間</option>
+    <option value="AI">コンピュータ</option>
+    <option value="online_player">オンラインプレイヤー</option>
+</select>
+</p>
+
 黒<input type="text" size="2" name="black" value="2">　　白<input type="text" size="2" name="white" value="2">
 <br />
 <input type="text" size="36" name="info" value="開始ボタンを押してください。"><br />
