@@ -41,9 +41,8 @@
             $winning_rate = "-";
         }
         else {
-            $winning_rata = $game_score['winning_num'] / $game_score['game_num'];
+            $winning_rate = ($game_score['winning_num'] / $game_score['game_num']) * 100;
         }
-
 
         $game_data_str = <<< EOM
 {$nickname}さん
