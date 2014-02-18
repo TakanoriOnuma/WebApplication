@@ -8,6 +8,9 @@
     $smarty->template_dir = 'templates/';
     $smarty->compile_dir  = 'templates_c/';
 
+    // セッションスタート
+    session_start();
+
     // セッションにない時（まだログインしていない時)
     if (!isset($_SESSION['number'])) {
         $smarty->assign('message', 'ログインしてください。');
@@ -32,9 +35,16 @@
         $pdo = myDataBase::createPDO();
         $pdo->query('SET NAMES utf8');
 
+        $nickname = get_nickname($_SESSION['number']);
+
+        // echo "$nickname\n";
+        // echo "${_POST['detail']}\n";
+        // exit;
+
         // データ登録
-        $stmt = $pdo->prepare('INSERT INTO articles(title, detail, created) VALUES(:title, :detail, :created)');
+        $stmt = $pdo->prepare('INSERT INTO articles(title, author, detail, created) VALUES(:title, :nickname, :detail, :created)');
         $stmt->bindValue(':title', $_POST['title']);
+        $stmt->bindValue(':nickname', $nickname);
         $stmt->bindValue(':detail', $_POST['detail']);
         date_default_timezone_set('Asia/Tokyo');
         $stmt->bindValue(':created', date('Y-m-d H:i:s'));

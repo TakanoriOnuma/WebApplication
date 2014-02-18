@@ -7,7 +7,7 @@
     $smarty = new Smarty();
     $smarty->template_dir = 'templates/';
     $smarty->compile_dir  = 'templates_c/';
-
+    
     try {
         $pdo = myDataBase::createPDO();
         $pdo->query('SET NAMES utf8');
