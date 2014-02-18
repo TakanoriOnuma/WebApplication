@@ -18,7 +18,8 @@
         $stmt->execute();
 
         // データ割り当て
-        if ($data = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($data) {
             $data['created'] = str_replace("-", "/", $data['created']);
             $smarty->assign('article', $data);
         }
@@ -27,6 +28,20 @@
             $smarty->display('error.tpl');
             exit;
         }
+
+        $edit_flag = false;     // 掲示板の修正を認めるか
+        // セッションスタート
+        session_start();
+        // セッションにある時（ログインしている時)
+        if (isset($_SESSION['number'])) {
+            // 作成者本人かの確認
+            $nickname = get_nickname($_SESSION['number']);
+            // 作成者本人なら
+            if ($nickname == $data['author']) {
+                $edit_flag = true;
+            }
+        }
+        $smarty->assign('edit_flag', $edit_flag);
 
         // データ検索
         $stmt = $pdo->prepare('SELECT * FROM comments WHERE news_id = :id');
@@ -40,6 +55,8 @@
             $data_array[] = $data;
         }
         $smarty->assign('comments', $data_array);
+
+
     }
     catch (PDOException $e) {
         exit($e->getMessage());

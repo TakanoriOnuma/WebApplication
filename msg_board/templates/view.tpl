@@ -12,10 +12,12 @@
 <tr><td>作成者</td><td>{$article.author}</td><td>作成日</td><td>{$article.created}</td></tr>
 <tr><td colspan="4">{$article.detail|nl2br}</td></tr>
 </table>
+{if ($edit_flag)}
 <ul>
     <li><a href="edit_form.php?id={$article.id}">編集</a></li>
     <li><a href="delete_form.php?id={$article.id}">削除</a></li>
 </ul>
+{/if}
 <h2>この記事へのコメント</h2>
 <div class="coms">
     {foreach $comments as $comment}
