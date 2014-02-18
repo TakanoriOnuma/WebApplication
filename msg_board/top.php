@@ -7,7 +7,7 @@
     $smarty = new Smarty();
     $smarty->template_dir = 'templates/';
     $smarty->compile_dir  = 'templates_c/';
-    
+
     try {
         $pdo = myDataBase::createPDO();
         $pdo->query('SET NAMES utf8');
@@ -18,6 +18,8 @@
         // データ割り当て
         $articles = array();
         while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            list($data['created'], $time) = explode(" ", $data['created']);
+            $data['created'] = str_replace("-", "/", $data['created']);
             $articles[] = $data;
         }
         $smarty->assign('articles', $articles);

@@ -37,10 +37,6 @@
 
         $nickname = get_nickname($_SESSION['number']);
 
-        // echo "$nickname\n";
-        // echo "${_POST['detail']}\n";
-        // exit;
-
         // データ登録
         $stmt = $pdo->prepare('INSERT INTO articles(title, author, detail, created) VALUES(:title, :nickname, :detail, :created)');
         $stmt->bindValue(':title', $_POST['title']);
