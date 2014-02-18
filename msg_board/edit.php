@@ -1,4 +1,6 @@
 <?php
+    require_once '../myDataBase.php';      // データベースアクセスクラスの読み込み
+
     // テンプレート利用準備
     require_once '../smarty/Smarty.class.php';
 
@@ -7,11 +9,6 @@
     $smarty->compile_dir  = 'templates_c/';
 
     // 入力内容のチェック
-    if ($_POST['key'] != 'abcd') {
-        $smarty->assign('message', 'パスワードが違います。');
-        $smarty->display('error.tpl');
-        exit;
-    }
     if ($_POST['title'] == '' or $_POST['detail'] == '') {
         $smarty->assign('message', 'タイトルと本文を入力してください。');
         $smarty->display('error.tpl');
@@ -19,8 +16,7 @@
     }
 
     try {
-        // データベース接続
-        $pdo = new PDO('mysql:dbname=phpdb;host=127.0.0.1', 'root', 'ayashi', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        $pdo = myDataBase::createPDO();
         $pdo->query('SET NAMES utf8');
 
         // データ登録

@@ -13,8 +13,6 @@
     <input type="text" name="title" size="30" value="{$article.title|escape}" /><br />
     本文：<br />
     <textarea name="detail" id="" cols="30" rows="5">{$article.detail|escape}</textarea><br />
-    パスワード：<br />
-    <input type="password" name="key" size="10" value="" /><br />
     <br />
     <input type="submit" value="編集する" />
 </form>
