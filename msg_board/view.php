@@ -1,4 +1,5 @@
 <?php
+    require_once '../myDataBase.php';      // データベースアクセスクラスの読み込み
 
     // テンプレート利用準備
     require_once '../smarty/Smarty.class.php';
@@ -8,8 +9,7 @@
     $smarty->compile_dir  = 'templates_c/';
 
     try {
-        // データベース接続
-        $pdo = new PDO('mysql:dbname=phpdb;host=127.0.0.1', 'root', 'ayashi', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        $pdo = myDataBase::createPDO();
         $pdo->query('SET NAMES utf8');
 
         // データ検索
@@ -19,6 +19,7 @@
 
         // データ割り当て
         if ($data = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $data['created'] = str_replace("-", "/", $data['created']);
             $smarty->assign('article', $data);
         }
         else {

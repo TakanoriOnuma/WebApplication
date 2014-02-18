@@ -7,9 +7,11 @@
 </head>
 <body>
 <h1>掲示板詳細</h1>
-<h2>No.{$article.id} {$article.title|escape}</h2>
-<p>{$article.detail|escape|nl2br}</p>
-<p>投稿日時：{$article.created}</p>
+<table border="1">
+<tr><td>タイトル</td><td colspan="3">{$article.title}</td></tr>
+<tr><td>作成者</td><td>{$article.author}</td><td>作成日</td><td>{$article.created}</td></tr>
+<tr><td colspan="4">{$article.detail}</td></tr>
+</table>
 <ul>
     <li><a href="edit_form.php?id={$article.id}">編集</a></li>
     <li><a href="delete_form.php?id={$article.id}">削除</a></li>
