@@ -10,7 +10,7 @@
 <table border="1">
 <tr><td>タイトル</td><td colspan="3">{$article.title}</td></tr>
 <tr><td>作成者</td><td>{$article.author}</td><td>作成日</td><td>{$article.created}</td></tr>
-<tr><td colspan="4">{$article.detail}</td></tr>
+<tr><td colspan="4">{$article.detail|nl2br}</td></tr>
 </table>
 <ul>
     <li><a href="edit_form.php?id={$article.id}">編集</a></li>
@@ -20,7 +20,7 @@
 <div class="coms">
     {foreach $comments as $comment}
     <h3>{$comment.name} ({$comment.created})</h3>
-    <p>{$comment.comment}</p>
+    <p>{$comment.comment|nl2br}</p>
     {/foreach}
 </div>
 <form action="regist_comment.php" method="post">
