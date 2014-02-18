@@ -14,7 +14,7 @@
     // セッションにない時（まだログインしていない時)
     if (!isset($_SESSION['number'])) {
         $smarty->display('index.tpl');
-        exit;       
+        exit;
     }
 
     $account_data;      // 会員情報を持つ
