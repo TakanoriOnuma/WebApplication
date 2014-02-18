@@ -3,7 +3,7 @@
 
     // テンプレート利用準備
     require_once 'smarty/Smarty.class.php';
-    
+
     $smarty = new Smarty();
     $smarty->template_dir = 'templates/';
     $smarty->compile_dir  = 'templates_c/';
@@ -22,7 +22,7 @@
     try {
         $pdo = myDataBase::createPDO();
         $pdo->query('SET NAMES utf8');
-    
+
         $stmt = $pdo->prepare('SELECT * FROM accounts WHERE number = :number');
         $stmt->bindValue(':number', $_SESSION['number'], PDO::PARAM_INT);
         $stmt->execute();

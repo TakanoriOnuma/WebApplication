@@ -16,17 +16,26 @@
 
     // フォーム送信で来たとき
     try {
-        $pdo = myDataBase::createPDO();        
+        $pdo = myDataBase::createPDO();
         $pdo->query('SET NAMES utf8');
 
         $stmt = $pdo->prepare('SELECT * FROM accounts WHERE id = :id');
         $stmt->bindValue(':id', $_POST['id']);
         $stmt->execute();
+        $using_id_flag = ($stmt->fetch(PDO::FETCH_ASSOC) != null)? true : false;
+
+        $stmt = $pdo->prepare('SELECT * FROM accounts WHERE nickname = :nickname');
+        $stmt->bindValue(':nickname', $_POST['nickname']);
+        $stmt->execute();
+        $using_nickname_flag = ($stmt->fetch(PDO::FETCH_ASSOC) != null)? true : false;
 
         $error_message = '';        // エラーなしと宣言しておく
         // エラーチェック
-        if($stmt->fetch(PDO::FETCH_ASSOC)) {
+        if($using_id_flag) {
             $error_message .= "このIDは既に使われています。\n";
+        }
+        if($using_nickname_flag) {
+            $error_message .= "このニックネームは既に使われています。\n";
         }
         if ($_POST['id'] == '' or $_POST['nickname'] == '') {
             $error_message .= "IDかニックネームが記入していません。\n";
@@ -55,6 +64,18 @@
         $stmt->bindValue(':id', $_POST['id']);
         $stmt->bindValue(':nickname', $_POST['nickname']);
         $stmt->bindValue(':password', $hash_pass);
+        $stmt->execute();
+
+        // このIDの会員番号を取得する
+        $stmt = $pdo->prepare('SELECT * FROM accounts WHERE id = :id');
+        $stmt->bindValue(':id', $_POST['id']);
+        $stmt->execute();
+
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // ゲームスコアテーブルも作成する
+        $stmt = $pdo->prepare('INSERT INTO game_scores VALUES(:no, 0, 0)');
+        $stmt->bindValue(':no', $data['number']);
         $stmt->execute();
 
         $pdo = null;        // データベースとの接続を終了する
