@@ -4,6 +4,12 @@
 <meta charset="UTF-8" />
 <link rel="stylesheet" href="stylesheet/style.css" type="text/css" />
 <title>コメント投稿</title>
+<script language="JavaScript">
+function check() {
+    // 確認ダイアログを表示してその結果を返す
+    return window.confirm('この掲示板を削除してもよろしいですか？');
+};
+</script>
 </head>
 <body>
 <h1>掲示板詳細</h1>
@@ -13,10 +19,12 @@
 <tr><td colspan="4">{$article.detail|nl2br}</td></tr>
 </table>
 {if ($edit_flag)}
-<ul>
-    <li><a href="edit_form.php?id={$article.id}">編集</a></li>
-    <li><a href="delete_form.php?id={$article.id}">削除</a></li>
-</ul>
+<p><a href="edit_form.php?id={$article.id}">編集</a></p>
+<form action="delete.php" method="post" onSubmit="return check()">
+    <input type="hidden" name="id" value="{$article.id}" />
+    <br />
+    <input type="submit" value="削除する" />
+</form>
 {/if}
 <h2>この記事へのコメント</h2>
 <div class="coms">
