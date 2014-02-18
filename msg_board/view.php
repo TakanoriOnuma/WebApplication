@@ -36,6 +36,7 @@
         $data_array = array();
         // データ割り当て
         while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $data['created'] = str_replace("-", "/", $data['created']);
             $data_array[] = $data;
         }
         $smarty->assign('comments', $data_array);

@@ -23,8 +23,16 @@
     <p>{$comment.comment}</p>
     {/foreach}
 </div>
+<form action="regist_comment.php" method="post">
+    コメント：<br />
+    <textarea name="comment" id="" cols="30" rows="5"></textarea><br />
+    <input type="hidden" name="news_id" value="{$article.id}" />
+    <br />
+    <input type="submit" value="コメントする" />
+</form>
+
+<a href="regist_comment_form.php?id={$article.id}">コメントする</a>
 <ul>
-    <li><a href="regist_comment_form.php?id={$article.id}">コメントする</a></li>
     <li><a href="top.php">一覧へ戻る</a></li>
 </ul>
 </body>

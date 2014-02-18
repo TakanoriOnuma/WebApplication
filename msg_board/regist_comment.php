@@ -1,4 +1,6 @@
 <?php
+    require_once '../myDataBase.php';      // データベースアクセスクラスの読み込み
+
     // テンプレート利用準備
     require_once '../smarty/Smarty.class.php';
 
@@ -6,27 +8,33 @@
     $smarty->template_dir = 'templates/';
     $smarty->compile_dir  = 'templates_c/';
 
-    // 入力内容チェック
-    if ($_POST['key'] != 'abcd') {
-        $smarty->assign('message', 'パスワードが違います。');
+    // セッションスタート
+    session_start();
+
+    // セッションにない時（まだログインしていない時)
+    if (!isset($_SESSION['number'])) {
+        $smarty->assign('message', 'ログインしてください');
         $smarty->display('error.tpl');
         exit;
     }
-    if ($_POST['name'] == '' or $_POST['comment'] == '') {
-        $smarty->assign('message', '名前とコメントを入力してください。');
+
+    // 入力内容チェック
+    if ($_POST['comment'] == '') {
+        $smarty->assign('message', 'コメントを入力してください。');
         $smarty->display('error.tpl');
         exit;
     }
 
     try {
-        // データベース接続
-        $pdo = new PDO('mysql:dbname=phpdb;host=127.0.0.1', 'root', 'ayashi', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        $pdo = myDataBase::createPDO();
         $pdo->query('SET NAMES utf8');
+
+        $nickname = get_nickname($_SESSION['number']);
 
         // データ登録
         $stmt = $pdo->prepare('INSERT INTO comments(news_id, name, comment, created) VALUES(:news_id, :name, :comment, :created)');
         $stmt->bindValue(':news_id', $_POST['news_id']);
-        $stmt->bindValue(':name', $_POST['name']);
+        $stmt->bindValue(':name', $nickname);
         $stmt->bindValue(':comment', $_POST['comment']);
         date_default_timezone_set('Asia/Tokyo');
         $stmt->bindValue(':created', date('Y-m-d H:i:s'));
