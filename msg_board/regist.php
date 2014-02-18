@@ -8,6 +8,13 @@
     $smarty->template_dir = 'templates/';
     $smarty->compile_dir  = 'templates_c/';
 
+    // セッションにない時（まだログインしていない時)
+    if (!isset($_SESSION['number'])) {
+        $smarty->assign('message', 'ログインしてください。');
+        $smarty->display('error.tpl');
+        exit;
+    }
+
     // 入力内容チェック
     if ($_POST['key'] != 'abcd') {
         $smarty->assign('message', 'パスワードが違います。');
