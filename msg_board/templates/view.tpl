@@ -30,8 +30,6 @@
     <br />
     <input type="submit" value="コメントする" />
 </form>
-
-<a href="regist_comment_form.php?id={$article.id}">コメントする</a>
 <ul>
     <li><a href="top.php">一覧へ戻る</a></li>
 </ul>
