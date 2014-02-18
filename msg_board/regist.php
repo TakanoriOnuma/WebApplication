@@ -19,11 +19,6 @@
     }
 
     // 入力内容チェック
-    if ($_POST['key'] != 'abcd') {
-        $smarty->assign('message', 'パスワードが違います。');
-        $smarty->display('error.tpl');
-        exit;
-    }
     if ($_POST['title'] == '' or $_POST['detail'] == '') {
         $smarty->assign('message', 'タイトルと本文を入力してください。');
         $smarty->display('error.tpl');

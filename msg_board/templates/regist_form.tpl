@@ -12,8 +12,6 @@
     <input type="text" name="title" size="30" value="" /><br />
     本文：<br />
     <textarea name="detail" id="" cols="30" rows="5"></textarea><br />
-    パスワード：<br />
-    <input type="password" name="key" size="10" value="" /><br />
     <br />
     <input type="submit" value="登録する" />
 </form>
