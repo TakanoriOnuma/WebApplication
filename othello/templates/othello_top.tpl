@@ -16,7 +16,8 @@
 {/if}
 <p>
 <a href="othello.php?command=create">新しい部屋を作成する</a><br />
-<a href="othello.php?play=computer">コンピュータと対戦する</a>
+<a href="othello.php?play=computer">コンピュータと対戦する</a><br />
+<a href="../index.php">トップページに戻る</a>
 </p>
 </body>
 </html>

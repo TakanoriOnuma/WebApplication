@@ -21,7 +21,7 @@
 </table>
 <ul>
     <li><a href="regist_form.php">新規登録</a></li>
-    <li><a href="../index.php">TOPに戻る</a></li>
+    <li><a href="../index.php">トップページに戻る</a></li>
 </ul>
 </body>
 </html>

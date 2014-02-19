@@ -293,5 +293,6 @@ document.images[36].src = images[white].src;
 </script>
 </td></tr>
 </table>
+<p align="center"><a href="othello_top.php">オセロのトップページに戻る</a></p>
 </body>
 </html>
