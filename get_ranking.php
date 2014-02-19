@@ -17,7 +17,8 @@
                 $data['winning_rate'] = -1;
             }
             else {
-                $data['winning_rate'] = ($data['winning_num'] / $data['game_num']) * 100;
+                // 小数点以下2桁までに丸める
+                $data['winning_rate'] = round(($data['winning_num'] / $data['game_num']) * 100, 2);
             }
             $ranking_dats[] = $data;
         }

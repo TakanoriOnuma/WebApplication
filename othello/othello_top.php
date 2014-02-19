@@ -36,7 +36,8 @@
             $winning_rate = "-";
         }
         else {
-            $winning_rate = ($game_score['winning_num'] / $game_score['game_num']) * 100;
+            // 小数点以下2位までに丸める
+            $winning_rate = round(($game_score['winning_num'] / $game_score['game_num']) * 100, 2);
         }
 
         $game_data_str = <<< EOM
