@@ -2,10 +2,11 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8" />
-<title>トップページ</title>
+<link rel="stylesheet" href="stylesheet/style.css" type="text/css" />
+<title>オンラインオセロ</title>
 </head>
 <body>
-<h1>トップページ</h1>
+<h1>オンラインオセロ</h1>
 {if isset($account_data)}<p>{$account_data|nl2br}</p>
 {/if}
 <ul>

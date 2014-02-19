@@ -5,6 +5,18 @@ body{
     line-height: 1.5em;
 }
 
+table.table {
+    background-color: white;
+}
+
+table.table th {
+    background-color: skyblue;
+}
+
+table.table td {
+    background-color: powderblue;
+}
+
 h1{
     color: darkorange;
     border-style: solid;

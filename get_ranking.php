@@ -58,9 +58,16 @@
 <td>{$ranking_data['name']}</td>
 <td>{$ranking_data['game_num']}</td>
 <td>{$ranking_data['winning_num']}</td>
-<td>{$ranking_data['winning_rate']}</td>
-</tr>
 EOM;
+            // 勝率が'-'なら
+            if ($ranking_data['winning_rate'] === '-') {
+                echo "<td class=\"center\">{$ranking_data['winning_rate']}</td>\n";
+            }
+            else {
+                echo "<td>{$ranking_data['winning_rate']}</td>\n";
+            }
+            echo "</tr>\n";
+
             // 前のデータを更新する
             $prev_element = $ranking_data[$element_name];
             ++$i;       // 行数を1つ進める

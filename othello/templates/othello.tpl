@@ -3,6 +3,7 @@
 <head>
 <title>オセロ</title>
 <meta charset="UTF-8" />
+<link rel="stylesheet" href="stylesheet/style.css" type="text/css" />
 <script language="JavaScript" src="../lib/javascript/ajax.js"></script>
 <script language="JavaScript" src="server_file_process.js"></script>
 <script language="JavaScript" src="player.js"></script>
@@ -11,7 +12,7 @@
 //*******************************************************************
 //**　グローバル変数定義（どの関数からも参照可能） **
 //*******************************************************************
-var game_speed = 500;       // ゲームスピード
+var game_speed = 1000;       // ゲームスピード
 
 // 石の色データ（オセロ盤で使われる変数）
 var black = 1;      // 黒
@@ -80,15 +81,8 @@ function g_start() {
     player1 = create_player("{$black_player}", black - 1);
     player2 = create_player("{$white_player}", white - 1);
 
-    game_speed = document.form1.game_speed.value;
     document.form1.start_button.disabled = true;    // ボタンを使えなくする
-    // スピードの範囲を100～9000に収める
-    if (game_speed < 100) {
-        game_speed = 100;
-    };
-    if (game_speed > 9000) {
-        game_speed = 9000;
-    };
+
     // オセロの最初の状態にセット
     for (var i = 0; i < 64; i++) {
         if (i == 27 || i == 36) {
@@ -264,9 +258,8 @@ function record_score(result_str) {
 <body bgcolor="#eeffee" text="#111122">
 <div align="center">
 <form name="form1"><font size="3" font color="#000000">
-<pre>実行時間(msec)（100-9000の範囲）<input type="text" size="4" name="game_speed" value="1000"><br />
+<pre>
 黒<input type="text" size="2" name="black" value="2">　　白<input type="text" size="2" name="white" value="2">
-<br />
 <input type="text" size="36" name="info" value="開始ボタンを押してください。"><br />
 <input type="button" value="スタート" name="start_button" onClick="g_start()">
 </pre>
