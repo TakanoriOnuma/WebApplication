@@ -17,7 +17,6 @@
 <li><a href="register.php">会員登録</a></li>
 <li><a href="login.php">ログイン</a></li>
 {/if}
-<li><a href="guide.html">ガイド</a></li>
 <li><a href="ranking.html">ランキング</a></li>
 <li><a href="msg_board/top.php">掲示板へ</a></li>
 </ul>
