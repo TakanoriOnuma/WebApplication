@@ -5,9 +5,6 @@
         $pdo = myDataBase::createPDO();
         $pdo->query('SET NAMES utf8');
 
-        // 降順にしたい列名
-        $element = $_POST['element'];
-
         $stmt = $pdo->query("SELECT * FROM game_scores");
 
         // ランキングデータを生成する
@@ -16,7 +13,8 @@
             $data['name'] = get_nickname($data['number']);
 
             if ($data['game_num'] == 0) {
-                $data['winning_rate'] = '-';
+                // 降順をしやすくするためとりあえず-1にする
+                $data['winning_rate'] = -1;
             }
             else {
                 $data['winning_rate'] = ($data['winning_num'] / $data['game_num']) * 100;
@@ -24,11 +22,28 @@
             $ranking_dats[] = $data;
         }
 
+        // 降順にしたい列名
+        $element = $_POST['element'];
+
+        // 列方向の配列を得る
+        foreach ($ranking_dats as $key => $row) {
+            $desc_array[$key]  = $row[$element];
+        }
+
+        // $elementの列を降順にする
+        array_multisort($desc_array, SORT_DESC, $ranking_dats);
+
         // テーブルとして出力
         echo "<br /><table border=1>\n";
         echo "<tr><th>順位</th><th>名前</th><th>対戦数</th><th>勝数</th><th>勝率（%）</th></tr>\n";
         $i = 1;
         foreach ($ranking_dats as $ranking_data) {
+            // -1（計算不能）を'-'の出力に変更する
+            if ($ranking_data['winning_rate'] == -1) {
+                $ranking_data['winning_rate'] = '-';
+            }
+
+            // 1行分を出力
             echo <<< EOM
 <tr>
 <td>{$i}</td>
