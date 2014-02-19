@@ -13,7 +13,7 @@ function check() {
 </head>
 <body>
 <h1>掲示板詳細</h1>
-<table border="1">
+<table border="1" class="table">
 <tr><td>タイトル</td><td colspan="3">{$article.title}</td></tr>
 <tr><td>作成者</td><td>{$article.author}</td><td>作成日</td><td>{$article.created}</td></tr>
 <tr><td colspan="4">{$article.detail|nl2br}</td></tr>

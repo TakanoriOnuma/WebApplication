@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>掲示板一覧</h1>
-<table border=1>
+<table border=1 class="table">
 <tr><th>No.</th><th>タイトル</th><th>作成者</th><th>作成日</th><tr>
 {foreach $articles as $article}
 <tr>
