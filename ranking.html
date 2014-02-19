@@ -3,10 +3,18 @@
 <head>
 <meta charset="UTF-8" />
 <title>ランキング</title>
-<script language="Javascript">
+<script language="JavaScript" src="lib/javascript/ajax.js"></script>
+<script language="JavaScript">
+// ランキングの取得を行う
 function getRanking(obj) {
+    var data = "";
+    data += "element=" + obj.value;
+    sendRequest("POST", "./get_ranking.php", data, false, callback);
+};
+// PHPの出力結果を受け取る
+function callback(xmlhttp) {
     var ranking = document.getElementById("ranking");
-    ranking.innerHTML = obj.value;
+    ranking.innerHTML = xmlhttp.responseText;
 };
 </script>
 </head>
