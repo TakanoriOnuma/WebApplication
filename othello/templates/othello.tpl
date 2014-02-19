@@ -3,7 +3,7 @@
 <head>
 <title>オセロ</title>
 <meta charset="UTF-8" />
-<script language="JavaScript" src="ajax.js"></script>
+<script language="JavaScript" src="../lib/javascript/ajax.js"></script>
 <script language="JavaScript" src="server_file_process.js"></script>
 <script language="JavaScript" src="player.js"></script>
 <script language="JavaScript" src="othello_process.js"></script>
