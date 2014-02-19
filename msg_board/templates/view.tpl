@@ -19,12 +19,19 @@ function check() {
 <tr><td colspan="4">{$article.detail|nl2br}</td></tr>
 </table>
 {if ($edit_flag)}
-<p><a href="edit_form.php?id={$article.id}">編集</a></p>
-<form action="delete.php" method="post" onSubmit="return check()">
+<br />
+<table>
+<tr>
+<td><form action="edit_form.php" method="get">
     <input type="hidden" name="id" value="{$article.id}" />
-    <br />
+    <input type="submit" value="編集する" />
+</form></td>
+<td><form action="delete.php" method="post" onSubmit="return check()">
+    <input type="hidden" name="id" value="{$article.id}" />
     <input type="submit" value="削除する" />
-</form>
+</form></td>
+</tr>
+</table>
 {/if}
 <h2>この記事へのコメント</h2>
 <div class="coms">
