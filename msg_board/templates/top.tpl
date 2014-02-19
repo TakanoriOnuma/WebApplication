@@ -8,7 +8,6 @@
 </head>
 <body>
 <h1>掲示板一覧</h1>
-{if ($articles != null)}
 <table border=1>
 <tr><th>No.</th><th>タイトル</th><th>作成者</th><th>作成日</th><tr>
 {foreach $articles as $article}
@@ -20,7 +19,6 @@
 </tr>
 {/foreach}
 </table>
-{/if}
 <ul>
     <li><a href="regist_form.php">新規登録</a></li>
     <li><a href="../index.php">TOPに戻る</a></li>
