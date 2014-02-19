@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>会員登録</h1>
-{if isset($error_message)}<h2>{$error_message|nl2br}</h2>
+{if isset($error_message)}<h2 class="error">{$error_message|nl2br}</h2>
 {/if}
 <form action="register.php" method="post">
 <p>

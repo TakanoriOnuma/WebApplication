@@ -38,7 +38,7 @@
             $error_message .= "このニックネームは既に使われています。\n";
         }
         if ($_POST['id'] == '' or $_POST['nickname'] == '') {
-            $error_message .= "IDかニックネームが記入していません。\n";
+            $error_message .= "IDかニックネームが記入してありません。\n";
         }
         if ($_POST['password'] == '') {
             $error_message .= "パスワードが入力してありません。\n";

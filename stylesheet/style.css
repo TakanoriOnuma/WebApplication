@@ -38,6 +38,11 @@ h2 {
     color: white;
 }
 
+h2.error {
+    background-color: transparent;
+    color: red;
+}
+
 h3 {
     padding-left: 10px;
     border-left: solid mediumblue 10px;
