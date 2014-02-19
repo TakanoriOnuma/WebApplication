@@ -3,8 +3,20 @@
 <head>
 <meta charset="UTF-8" />
 <title>ランキング</title>
+<script language="Javascript">
+function getRanking(obj) {
+    var ranking = document.getElementById("ranking");
+    ranking.innerHTML = obj.value;
+};
+</script>
 </head>
 <body>
 <h1>ランキング</h1>
+<select name="obj" onChange="getRanking(this)">
+<option value="game_num">対戦数</option>
+<option value="winning_num">勝数</option>
+<option value="winning_rate" selected>勝率</option>
+</select>
+<div id="ranking"></div>
 </body>
 </html>
