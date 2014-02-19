@@ -1,0 +1,28 @@
+body{
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: lavender;
+    line-height: 1.5em;
+}
+
+h1{
+    color: darkorange;
+    border-style: solid;
+    border-color: darkorange;
+    border-left-width: 15px;
+    border-bottom-width: 2px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    padding-left: 10px;
+    padding-bottom: 2px;
+}
+
+h2 {
+    background-color: mediumblue;
+    color: white;
+}
+
+h3 {
+    padding-left: 10px;
+    border-left: solid mediumblue 10px;
+}

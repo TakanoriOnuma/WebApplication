@@ -59,7 +59,7 @@ EOM;
     $room_dir = "room/";
     $game_player_file_format = $room_dir . "game_player_%d.dat";
     $gamefield_file_format   = $room_dir . "gamefield_%d.dat";
-    $room_str = "";
+    $room_str = "<ul>\n";
     for ($i = 0; $i < 100; $i++) {
         // ついでに確認して消しておく
         file_remove(sprintf($gamefield_file_format, $i));
@@ -81,14 +81,15 @@ EOM;
             $room_name = $black_name . "さんの部屋";
             // 相手がいないなら
             if ($white_name == "") {
-                $room_str .= "<a href=\"othello.php?room_no={$i}\">{$room_name}</a>\n";                
+                $room_str .= "<li><a href=\"othello.php?room_no={$i}\">{$room_name}</a></li>\n";                
             }
             // 相手がいたら
             else {
-                 $room_str .= "{$room_name}（対戦中）\n";
+                 $room_str .= "<li>{$room_name}（対戦中）</li>\n";
             }
         }
     }
+    $room_str .= "</ul>";
     // 部屋の情報をアサインする
     $smarty->assign('room', $room_str);
     // 結果を表示する
