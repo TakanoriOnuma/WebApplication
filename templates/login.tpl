@@ -13,7 +13,6 @@
 <p>
     ID：<input type="text" name="id" value="{$id|default:''}"><br />
     パスワード：<input type="password" name="password" value="{$password|default:''}"><br />
-    <input type="checkbox" name="auto_login" {$auto_login|default:''}>1週間自動ログインする<br /><br />
     <input type="submit" value="送信">
 </p>
 </form>

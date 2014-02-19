@@ -42,7 +42,6 @@
             $smarty->assign('error_message', $error_message);
             $smarty->assign('id', $_POST['id']);
             $smarty->assign('password', $_POST['password']);
-            $smarty->assign('auto_login', (isset($_POST['auto_login'])) ? 'checked' : '');
             $smarty->display('login.tpl');
             exit;
         }
@@ -54,10 +53,6 @@
     catch(PDOException $e) {
         exit($e->getMessage());
     }
-
-    // エラーがない時
-    $auto_login_flag = (isset($_POST['auto_login'])) ? 'true' : 'false';
-
 
     // セッションに登録する
     session_start();
