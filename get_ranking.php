@@ -24,7 +24,7 @@
         }
 
         // 降順にしたい列名
-        $element_name = $_POST['element'];
+        $element_name = $_POST['element_name'];
 
         // 列方向の配列を得る
         foreach ($ranking_dats as $key => $row) {

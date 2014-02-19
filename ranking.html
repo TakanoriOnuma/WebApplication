@@ -6,9 +6,12 @@
 <script language="JavaScript" src="lib/javascript/ajax.js"></script>
 <script language="JavaScript">
 // ランキングの取得を行う
-function getRanking(obj) {
-    var data = "";
-    data += "element=" + obj.value;
+function getRanking() {
+    // 今セレクトタグで選択しているものを取得する
+    index = document.selbox.element_name.selectedIndex;
+    element_name = document.selbox.element_name[index].value;
+
+    var data = "element_name=" + element_name;
     sendRequest("POST", "./get_ranking.php", data, false, callback);
 };
 // PHPの出力結果を受け取る
@@ -18,13 +21,16 @@ function callback(xmlhttp) {
 };
 </script>
 </head>
-<body>
+<body onLoad="getRanking()">
 <h1>ランキング</h1>
-<select name="obj" onChange="getRanking(this)">
+<form name="selbox">
+ソート：
+<select name="element_name" onChange="getRanking()">
 <option value="game_num">対戦数</option>
 <option value="winning_num">勝数</option>
 <option value="winning_rate" selected>勝率</option>
 </select>
+</form>
 <br /><br />
 <div id="ranking"></div>
 </body>
