@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8" />
+<link rel="stylesheet" href="stylesheet/style.css" type="text/css" />
 <title>{$title}</title>
 </head>
 <body>
