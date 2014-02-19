@@ -17,6 +17,10 @@ td {
     background-color: powderblue;
 }
 
+td.center {
+    text-align: center;
+}
+
 h1{
     color: darkorange;
     border-style: solid;
